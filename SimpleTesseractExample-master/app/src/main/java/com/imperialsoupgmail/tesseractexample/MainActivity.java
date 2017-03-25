@@ -22,12 +22,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
-    Bitmap image;
+    Bitmap image,image2;
     private TessBaseAPI mTess;
     String datapath = "";
+    int[] p ;
+    int count = 0;
+    R.drawable drawableResources = new R.drawable();
+    Class<R.drawable> c = R.drawable.class;
+    Field[] fields = c.getDeclaredFields();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //init image
-        image = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
+        //image = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
+        p = new int[]{R.drawable.test_image,
+                R.drawable.test_image8};
+        image = BitmapFactory.decodeResource(getResources(), p[count]);
+
+        image2 = BitmapFactory.decodeResource(getResources(), p[1]);
 
         //initialize Tesseract API
         String language = "eng";
@@ -48,11 +60,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void processImage(View view){
+
+
+    int resourceId = 0;
+
+
+        try{
+            resourceId = fields[count].getInt(drawableResources);
+
+            System.out.println("Field two  - "+resourceId);
+
+        }catch (Exception ex){
+
+        }
+
+
+
         String OCRresult = null;
-        mTess.setImage(image);
+        //mTess.setImage(image);
+        mTess.setImage(BitmapFactory.decodeResource(getResources(), p[count]));
         OCRresult = mTess.getUTF8Text();
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
+
+
+        if (count>0){
+
+            ImageView imageview =(ImageView) findViewById(R.id.imageView);;
+            imageview.setImageResource(resourceId);
+
+        }
+        ++count;
+
     }
 
     private void checkFile(File dir) {
