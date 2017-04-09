@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,14 +27,19 @@ import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
-    Bitmap image,image2;
+    Bitmap image;
     private TessBaseAPI mTess;
     String datapath = "";
     int[] p ;
+
     int count = 0;
-    R.drawable drawableResources = new R.drawable();
-    Class<R.drawable> c = R.drawable.class;
-    Field[] fields = c.getDeclaredFields();
+     // R.drawable drawableResources = new R.drawable();
+     //Class<R.drawable> c = R.drawable.class;
+    // Field[] fields = c.getDeclaredFields();
+
+    ImageView imageView;
+
+    int imageKey=0;
 
 
     @Override
@@ -41,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //init image
-        //image = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
-        p = new int[]{R.drawable.test_image,
-                R.drawable.test_image8};
-        image = BitmapFactory.decodeResource(getResources(), p[count]);
 
-        image2 = BitmapFactory.decodeResource(getResources(), p[1]);
+        p = new int[]{
+                R.drawable.test_image0
+
+        };
+
+        image = BitmapFactory.decodeResource(getResources(), p[0]);
 
         //initialize Tesseract API
         String language = "eng";
@@ -62,33 +68,22 @@ public class MainActivity extends AppCompatActivity {
     public void processImage(View view){
 
 
-    int resourceId = 0;
+        String url = "drawable/"+"test_image"+count;
+        imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+        System.out.println("ImageKey - "+imageKey);
 
 
-        try{
-            resourceId = fields[count].getInt(drawableResources);
-
-            System.out.println("Field two  - "+resourceId);
-
-        }catch (Exception ex){
-
-        }
-
-
+        imageView =(ImageView) findViewById(R.id.imageView);
+        image = BitmapFactory.decodeResource(getResources(), imageKey);
 
         String OCRresult = null;
-        //mTess.setImage(image);
-        mTess.setImage(BitmapFactory.decodeResource(getResources(), p[count]));
+        mTess.setImage(BitmapFactory.decodeResource(getResources(),imageKey));
         OCRresult = mTess.getUTF8Text();
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
 
-
         if (count>0){
-
-            ImageView imageview =(ImageView) findViewById(R.id.imageView);;
-            imageview.setImageResource(resourceId);
-
+            imageView.setImageBitmap(image);
         }
         ++count;
 
