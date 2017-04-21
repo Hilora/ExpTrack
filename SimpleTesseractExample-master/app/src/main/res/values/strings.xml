@@ -4,5 +4,6 @@
         <item>Pick a Photo</item>
         <item>Take a Photo</item>
     </string-array>
-    <string name="title_activity_control">ControlActivity</string>
+    <string name="title_activity_main_screen">ExpTrack Home</string>
+    <string name="title_activity_capture_image">Log Expense</string>
 </resources>
