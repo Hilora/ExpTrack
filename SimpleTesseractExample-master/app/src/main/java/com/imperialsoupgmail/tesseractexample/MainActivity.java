@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
     private void copyFiles() {
         try {
             String filepath = datapath + "/tessdata/eng.traineddata";
