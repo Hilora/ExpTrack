@@ -35,4 +35,15 @@
         android:id="@+id/button4"
         android:onClick="dispatchTakePictureIntent" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/button4"
+        android:minWidth="300dp"
+        android:minHeight="63dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
