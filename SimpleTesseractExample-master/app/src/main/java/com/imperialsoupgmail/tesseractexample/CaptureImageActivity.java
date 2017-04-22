@@ -33,6 +33,18 @@ public class CaptureImageActivity extends AppCompatActivity {
     private TessBaseAPI mTess;
     String datapath = "";
 
+    Button btnCamera ;
+
+    public void init() {
+        btnCamera = (Button)findViewById(R.id.btnCamera);
+        btnCamera.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                processImage(v);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +75,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     }
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -82,16 +95,60 @@ public class CaptureImageActivity extends AppCompatActivity {
                 TextView OCRTextView = (TextView) findViewById(R.id.textView3);
                 OCRTextView.setText(OCRresult);
 
-                System.out.println("Extracted Text"+OCRresult);
-                //=====
+                System.out.println("Extracted Text "+OCRresult);
 
+                //=====
 
                 result.setImageBitmap(imageBitmap);
             }
         }
 
+    public String extractTotal(String value){
+
+        String firstToken ;
+        String secondToken = null;
+
+        try{
+            String[] tokens = value.split(" ");
+            if(value.contains("TOTAL DUE")){
+
+                tokens = value.split("TOTAL DUE");
+
+            }else if(value.contains("TOTAL")){
+
+                tokens = value.split("TOTAL");
+
+            }else if(value.contains("Total")){
+
+                tokens = value.split("Total");
+
+            }else if(value.contains("Amount")){
+
+                tokens = value.split("Amount");
+
+            }else if(value.contains("AMOUNT")){
+
+                tokens = value.split("AMOUNT");
+
+            }else if(value.contains("Net Total")){
+
+                tokens = value.split("Net Total");
+
+            }
 
 
+             firstToken = tokens[0];
+             secondToken = tokens[1];
+
+            System.out.println("--- FirstToken ---- "+ firstToken);
+            System.out.println("--- SecondToken ---- "+ secondToken);
+
+        }catch(Exception e){
+
+        }
+
+        return secondToken;
+    }
 
     private void checkFile(File dir) {
         if (!dir.exists()&& dir.mkdirs()){
@@ -106,9 +163,6 @@ public class CaptureImageActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 
     private void copyFiles() {
         try {
@@ -140,11 +194,6 @@ public class CaptureImageActivity extends AppCompatActivity {
         }
     }
 
-
-    //--------------------------
-
-    //Resize
-    // Resize
     public Bitmap resize(Bitmap img, int newWidth, int newHeight) {
         Bitmap bmap = img.copy(img.getConfig(), true);
 
@@ -242,6 +291,12 @@ public class CaptureImageActivity extends AppCompatActivity {
             }
         }
         return bmap;
+    }
+
+    public void processImage(View view){
+        Intent myIntent = new Intent(this, SummaryViewActivity.class);
+        //myIntent.putExtra("Total", value); //Optional parameters
+        this.startActivity(myIntent);
     }
 
 }

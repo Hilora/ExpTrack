@@ -6,4 +6,5 @@
     </string-array>
     <string name="title_activity_main_screen">ExpTrack Home</string>
     <string name="title_activity_capture_image">Log Expense</string>
+    <string name="title_activity_summary_view">SummaryViewActivity</string>
 </resources>

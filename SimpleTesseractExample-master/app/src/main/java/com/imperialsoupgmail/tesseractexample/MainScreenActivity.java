@@ -25,8 +25,6 @@ public class MainScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -35,10 +33,6 @@ public class MainScreenActivity extends AppCompatActivity {
 
     }
 
-    public void openCaptureImage(View view){
-        Intent myIntent = new Intent(this, CaptureImageActivity.class);
-        //myIntent.putExtra("key", value); //Optional parameters
-        this.startActivity(myIntent);
-    }
+     
 
 }

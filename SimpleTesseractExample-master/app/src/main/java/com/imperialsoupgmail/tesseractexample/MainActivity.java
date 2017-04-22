@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         OCRresult = mTess.getUTF8Text();
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
+
+
         System.out.println("Scanned Text"+OCRresult);
 
         if (count>0){
@@ -99,6 +101,45 @@ public class MainActivity extends AppCompatActivity {
           //  image = resize(image,300,300);
           //  image = setGrayscale(image);
           //  image = removeNoise(image);
+            try{
+                String[] tokens = OCRresult.split(" ");
+                if(OCRresult.contains("TOTAL DUE")){
+
+                    tokens = OCRresult.split("TOTAL DUE");
+
+                }else if(OCRresult.contains("TOTAL")){
+
+                    tokens = OCRresult.split("TOTAL");
+
+                }else if(OCRresult.contains("Total")){
+
+                    tokens = OCRresult.split("Total");
+
+                }else if(OCRresult.contains("Amount")){
+
+                    tokens = OCRresult.split("Amount");
+
+                }else if(OCRresult.contains("AMOUNT")){
+
+                    tokens = OCRresult.split("AMOUNT");
+
+                }else if(OCRresult.contains("Net Total")){
+
+                    tokens = OCRresult.split("Net Total");
+
+                }
+
+
+                String firstToken = tokens[0];
+                String secondToken = tokens[1];
+
+                System.out.println("--- FirstToken ---- "+ firstToken);
+                System.out.println("--- SecondToken ---- "+ secondToken);
+
+            }catch(Exception e){
+
+            }
+
 
             imageView.setImageBitmap(image);
         }

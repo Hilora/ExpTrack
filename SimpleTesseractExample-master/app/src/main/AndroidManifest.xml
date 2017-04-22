@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.imperialsoupgmail.tesseractexample">
 
-    <uses-feature android:name="android.hardware.Camera"  android:required="true"></uses-feature>
+    <uses-feature
+        android:name="android.hardware.Camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -11,28 +13,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
         <activity
             android:name=".CaptureImageActivity"
             android:label="@string/title_activity_capture_image"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SummaryViewActivity"
+            android:label="@string/title_activity_summary_view"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
