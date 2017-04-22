@@ -71,14 +71,16 @@ public class CaptureImageActivity extends AppCompatActivity {
                 //Image Pre-processing for text extraction
                 //imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 300, 500, false);
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                imageBitmap = setGrayscale(imageBitmap);
-                imageBitmap = removeNoise(imageBitmap);
+                //imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                //imageBitmap = setGrayscale(imageBitmap);
+                //imageBitmap = removeNoise(imageBitmap);
 
                 String OCRresult = null;
                 //mTess.setImage(BitmapFactory.decodeResource(getResources(),imageKey));
                 mTess.setImage(imageBitmap);
                 OCRresult = mTess.getUTF8Text();
+                TextView OCRTextView = (TextView) findViewById(R.id.textView3);
+                OCRTextView.setText(OCRresult);
 
                 System.out.println("Extracted Text"+OCRresult);
                 //=====
