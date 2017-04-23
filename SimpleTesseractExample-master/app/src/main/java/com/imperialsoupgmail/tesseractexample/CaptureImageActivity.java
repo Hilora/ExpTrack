@@ -38,8 +38,9 @@ public class CaptureImageActivity extends AppCompatActivity {
     private TessBaseAPI mTess;
     String datapath = "";
     Bitmap imageBitmap ;
-
     Button btnProcess ;
+
+
 
     public void init() {
         btnProcess = (Button)findViewById(R.id.btnProcess);
@@ -60,8 +61,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         Button click = (Button)findViewById(R.id.button4);
         result = (ImageView)findViewById(R.id.imageView2);
+         btnProcess = (Button)findViewById(R.id.btnProcess);
 
-
+        init();
         //initialize Tesseract API
         String language = "eng";
         datapath = getFilesDir()+ "/tesseract/";
@@ -89,46 +91,18 @@ public class CaptureImageActivity extends AppCompatActivity {
 
                 //--
                 try{
+                    //testing code
+//                    String url = "drawable/"+"test_image"+1;
+//                   int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+//
+//
+//
+//
+//                    imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
 
 
-/*
-                Uri selectedImage = data.getData();
-                String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
-                Cursor cur = managedQuery(selectedImage, orientationColumn, null, null, null);
-                int orientation = -1;
-                if (cur != null && cur.moveToFirst()) {
-                    orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
-                }
-                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                switch(orientation) {
-                    case 90:
-                        bitmap = rotateImage(imageBitmap, 90);
-                        break;
-                    case 180:
-                        bitmap = rotateImage(imageBitmap, 180);
-                        break;
-                    case 270:
-                        bitmap = rotateImage(imageBitmap, 270);
-                        break;
-                    default:
-                        break;
-                }
-*/
-                //--
-
-                //Image Pre-processing for text extraction
-                //imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 300, 500, false);
-                //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                //imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                //imageBitmap = setGrayscale(imageBitmap);
-                //imageBitmap = removeNoise(imageBitmap);
-
-
-                //=====
-
-
-                result.setImageBitmap(rotateImage(imageBitmap, 90));
+                    ////result.setImageBitmap(imageBitmap);
+                    result.setImageBitmap(rotateImage(imageBitmap, 90));
                 }catch(Exception e){
 
                 }
@@ -330,13 +304,13 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         String OCRresult = null;
         String value = null;
-        //mTess.setImage(BitmapFactory.decodeResource(getResources(),imageKey));
         mTess.setImage(rotateImage(imageBitmap, 90));
+       ////// mTess.setImage(imageBitmap);//testing code
         OCRresult = mTess.getUTF8Text();
         TextView OCRTextView = (TextView) findViewById(R.id.textView3);
         OCRTextView.setText(OCRresult);
 
-        System.out.println("Extracted Text "+OCRresult);
+        System.out.println("Extracted Text "+ OCRresult);
         value = extractTotal(OCRresult);
 
         Intent myIntent = new Intent(this, SummaryViewActivity.class);
