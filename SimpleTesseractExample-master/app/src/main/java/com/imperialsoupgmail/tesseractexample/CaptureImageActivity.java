@@ -92,21 +92,21 @@ public class CaptureImageActivity extends AppCompatActivity {
                 //--
                 try{
                     //testing code
-//                    String url = "drawable/"+"test_image"+1;
-//                   int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+                 String url = "drawable/"+"test_image"+5;
+                   int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
 //
 //
 //
 //
-//                    imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
+                    imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
 
 
-                    ////result.setImageBitmap(imageBitmap);
-                    result.setImageBitmap(rotateImage(imageBitmap, 90));
+                    //result.setImageBitmap(imageBitmap);
+                    //result.setImageBitmap(rotateImage(imageBitmap, 90));
                 }catch(Exception e){
 
                 }
-                //result.setImageBitmap(imageBitmap);
+                result.setImageBitmap(imageBitmap);
             }
         }
 
@@ -124,6 +124,10 @@ public class CaptureImageActivity extends AppCompatActivity {
             }else if(value.contains("TOTAL")){
 
                 tokens = value.split("TOTAL");
+
+            }else if(value.contains("TOTAL:LKR")){
+
+                tokens = value.split("TOTAL:LKR");
 
             }else if(value.contains("Total")){
 
@@ -304,13 +308,14 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         String OCRresult = null;
         String value = null;
-        mTess.setImage(rotateImage(imageBitmap, 90));
-       ////// mTess.setImage(imageBitmap);//testing code
+        //mTess.setImage(rotateImage(imageBitmap, 90));
+       mTess.setImage(imageBitmap);//testing code
         OCRresult = mTess.getUTF8Text();
+        System.out.println("Extracted Text "+ OCRresult);
         TextView OCRTextView = (TextView) findViewById(R.id.textView3);
         OCRTextView.setText(OCRresult);
 
-        System.out.println("Extracted Text "+ OCRresult);
+        //System.out.println("Extracted Text "+ OCRresult);
         value = extractTotal(OCRresult);
 
         Intent myIntent = new Intent(this, SummaryViewActivity.class);
