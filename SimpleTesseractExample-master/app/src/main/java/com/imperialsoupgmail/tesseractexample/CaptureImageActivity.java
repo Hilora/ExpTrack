@@ -38,6 +38,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     private TessBaseAPI mTess;
     String datapath = "";
     Bitmap imageBitmap ;
+    Button btnGallery ;
     Button btnProcess ;
     int count = 0;
 
@@ -49,6 +50,14 @@ public class CaptureImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 processImage(v);
+            }
+        });
+
+        btnGallery = (Button)findViewById(R.id.btnGallery);
+        btnGallery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                loadImage();
             }
         });
     }
@@ -93,17 +102,7 @@ public class CaptureImageActivity extends AppCompatActivity {
                 //--
                 try{
                     //testing code
-                 String url = "drawable/"+"test_image"+count;
-                    ++count;
-                   int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
-//
-//
-//
-//
-                    imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
-
-
-                    //result.setImageBitmap(imageBitmap);
+                result.setImageBitmap(imageBitmap);
                     //result.setImageBitmap(rotateImage(imageBitmap, 90));
                 }catch(Exception e){
 
@@ -112,6 +111,30 @@ public class CaptureImageActivity extends AppCompatActivity {
             }
         }
 
+
+    public void loadImage() {
+
+            //--
+            try{
+                //testing code
+                String url = "drawable/"+"test_image"+count;
+                ++count;
+                int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+//
+//
+//
+//
+                imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
+
+
+                //result.setImageBitmap(imageBitmap);
+                //result.setImageBitmap(rotateImage(imageBitmap, 90));
+            }catch(Exception e){
+
+            }
+            result.setImageBitmap(imageBitmap);
+
+    }
     public String extractTotal(String value){
 
         String firstToken ;
@@ -150,6 +173,10 @@ public class CaptureImageActivity extends AppCompatActivity {
             }else if(value.contains("|ToTnL=LKR")){
 
                 tokens = value.split("|ToTnL=LKR");
+
+            }else if(value.contains("Amount Due:")){
+
+                tokens = value.split("Amount Due:");
 
             }
 
@@ -329,6 +356,8 @@ public class CaptureImageActivity extends AppCompatActivity {
         myIntent.putExtra("Total", value); //Optional parameters
         this.startActivity(myIntent);
     }
+
+
 
     public Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
