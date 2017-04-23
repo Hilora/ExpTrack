@@ -33,6 +33,10 @@ public class MainScreenActivity extends AppCompatActivity {
 
     }
 
-     
+    public void openCaptureImage(View view){
+        Intent myIntent = new Intent(this, CaptureImageActivity.class);
+        //myIntent.putExtra("key", value); //Optional parameters
+        this.startActivity(myIntent);
+    }
 
 }
