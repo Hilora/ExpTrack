@@ -39,6 +39,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     String datapath = "";
     Bitmap imageBitmap ;
     Button btnProcess ;
+    int count = 0;
 
 
 
@@ -92,7 +93,8 @@ public class CaptureImageActivity extends AppCompatActivity {
                 //--
                 try{
                     //testing code
-                 String url = "drawable/"+"test_image"+5;
+                 String url = "drawable/"+"test_image"+count;
+                    ++count;
                    int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
 //
 //
@@ -145,7 +147,12 @@ public class CaptureImageActivity extends AppCompatActivity {
 
                 tokens = value.split("Net Total");
 
+            }else if(value.contains("|ToTnL=LKR")){
+
+                tokens = value.split("|ToTnL=LKR");
+
             }
+
 
 
              firstToken = tokens[0];
@@ -311,13 +318,13 @@ public class CaptureImageActivity extends AppCompatActivity {
         //mTess.setImage(rotateImage(imageBitmap, 90));
        mTess.setImage(imageBitmap);//testing code
         OCRresult = mTess.getUTF8Text();
-        System.out.println("Extracted Text "+ OCRresult);
+
         TextView OCRTextView = (TextView) findViewById(R.id.textView3);
-        OCRTextView.setText(OCRresult);
+        //OCRTextView.setText(OCRresult);
 
         //System.out.println("Extracted Text "+ OCRresult);
         value = extractTotal(OCRresult);
-
+        System.out.println("Extracted Text "+ OCRresult);
         Intent myIntent = new Intent(this, SummaryViewActivity.class);
         myIntent.putExtra("Total", value); //Optional parameters
         this.startActivity(myIntent);
