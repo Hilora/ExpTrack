@@ -2,8 +2,13 @@ package com.imperialsoupgmail.tesseractexample;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -32,12 +37,13 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     private TessBaseAPI mTess;
     String datapath = "";
+    Bitmap imageBitmap ;
 
-    Button btnCamera ;
+    Button btnProcess ;
 
     public void init() {
-        btnCamera = (Button)findViewById(R.id.btnCamera);
-        btnCamera.setOnClickListener(new View.OnClickListener(){
+        btnProcess = (Button)findViewById(R.id.btnProcess);
+        btnProcess.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 processImage(v);
@@ -78,28 +84,55 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageBitmap = (Bitmap) extras.get("data");
 
+
+                //--
+                try{
+
+
+/*
+                Uri selectedImage = data.getData();
+                String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
+                Cursor cur = managedQuery(selectedImage, orientationColumn, null, null, null);
+                int orientation = -1;
+                if (cur != null && cur.moveToFirst()) {
+                    orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+                }
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                switch(orientation) {
+                    case 90:
+                        bitmap = rotateImage(imageBitmap, 90);
+                        break;
+                    case 180:
+                        bitmap = rotateImage(imageBitmap, 180);
+                        break;
+                    case 270:
+                        bitmap = rotateImage(imageBitmap, 270);
+                        break;
+                    default:
+                        break;
+                }
+*/
+                //--
 
                 //Image Pre-processing for text extraction
                 //imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 300, 500, false);
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 //imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                 //imageBitmap = setGrayscale(imageBitmap);
                 //imageBitmap = removeNoise(imageBitmap);
 
-                String OCRresult = null;
-                //mTess.setImage(BitmapFactory.decodeResource(getResources(),imageKey));
-                mTess.setImage(imageBitmap);
-                OCRresult = mTess.getUTF8Text();
-                TextView OCRTextView = (TextView) findViewById(R.id.textView3);
-                OCRTextView.setText(OCRresult);
-
-                System.out.println("Extracted Text "+OCRresult);
 
                 //=====
 
-                result.setImageBitmap(imageBitmap);
+
+                result.setImageBitmap(rotateImage(imageBitmap, 90));
+                }catch(Exception e){
+
+                }
+                //result.setImageBitmap(imageBitmap);
             }
         }
 
@@ -294,9 +327,29 @@ public class CaptureImageActivity extends AppCompatActivity {
     }
 
     public void processImage(View view){
+
+        String OCRresult = null;
+        String value = null;
+        //mTess.setImage(BitmapFactory.decodeResource(getResources(),imageKey));
+        mTess.setImage(rotateImage(imageBitmap, 90));
+        OCRresult = mTess.getUTF8Text();
+        TextView OCRTextView = (TextView) findViewById(R.id.textView3);
+        OCRTextView.setText(OCRresult);
+
+        System.out.println("Extracted Text "+OCRresult);
+        value = extractTotal(OCRresult);
+
         Intent myIntent = new Intent(this, SummaryViewActivity.class);
-        //myIntent.putExtra("Total", value); //Optional parameters
+        myIntent.putExtra("Total", value); //Optional parameters
         this.startActivity(myIntent);
     }
+
+    public Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+                true);
+    }
+
 
 }

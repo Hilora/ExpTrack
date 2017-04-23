@@ -6,8 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 
 public class SummaryViewActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +18,16 @@ public class SummaryViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_summary_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        EditText txtTotal = (EditText) findViewById(R.id.txtTotal);
 
+
+        //Get the bundle
+        Bundle bundle = getIntent().getExtras();
+
+//Extract the data…
+        String total = bundle.getString("Total");
+
+        txtTotal.setText(total);
 
     }
 
