@@ -134,7 +134,7 @@ public class CaptureImageActivity extends AppCompatActivity {
             try{
                 //testing code
                 String url = "drawable/"+"test_image"+count;
-                ++count;
+                ++count;rjr
                 int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
 //
 //
@@ -158,6 +158,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         String firstToken ;
         String secondToken = null;
+        {jdk
 
         try{
             String[] tokens = value.split(" ");
@@ -213,6 +214,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         return secondToken;
     }
+
 
     private void checkFile(File dir) {
         if (!dir.exists()&& dir.mkdirs()){
@@ -333,9 +335,8 @@ public class CaptureImageActivity extends AppCompatActivity {
                 bmap.setPixel(i, j, Color.argb(255, gray, gray, gray));
             }
         }
-        return bmap;
-    }
 
+    }
     // RemoveNoise
     private Bitmap removeNoise(Bitmap bmap) {
         for (int x = 0; x < bmap.getWidth(); x++) {
@@ -375,7 +376,6 @@ public class CaptureImageActivity extends AppCompatActivity {
         myIntent.putExtra("Total", value); //Optional parameters
         this.startActivity(myIntent);
     }
-
 
 
     public Bitmap rotateImage(Bitmap source, float angle) {
