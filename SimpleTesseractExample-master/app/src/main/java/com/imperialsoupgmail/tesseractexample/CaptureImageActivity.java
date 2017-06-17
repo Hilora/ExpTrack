@@ -17,18 +17,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class CaptureImageActivity extends AppCompatActivity {
 
@@ -41,6 +48,11 @@ public class CaptureImageActivity extends AppCompatActivity {
     Button btnGallery ;
     Button btnProcess ;
     int count = 0;
+
+    private static final String TAG = "LDSS";
+    private EditText mNameField;
+    private TextView mSearchResult;
+    private List<String> mNames;
 
 
 
@@ -96,6 +108,10 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
+                if(imageBitmap!=null){
+                    imageBitmap.recycle();
+                }
+
                 imageBitmap = (Bitmap) extras.get("data");
 
 
@@ -123,7 +139,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 //
 //
 //
-//
+                if(imageBitmap!=null){
+                    imageBitmap.recycle();
+                }
                 imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
 
 
@@ -132,6 +150,7 @@ public class CaptureImageActivity extends AppCompatActivity {
             }catch(Exception e){
 
             }
+
             result.setImageBitmap(imageBitmap);
 
     }
@@ -364,6 +383,53 @@ public class CaptureImageActivity extends AppCompatActivity {
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
                 true);
+    }
+
+//    private List<String> loadNames() {
+//        List<String> result = new ArrayList<String>();
+//        InputStream inputStream = getResources().openRawResource(R.raw.names);
+//        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+//        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//        try {
+//            String s;
+//            while ((s = bufferedReader.readLine()) != null) {
+//                result.add(s);
+//            }
+//        } catch (IOException e) {
+//            //Log.d(TAG, "io error", e);
+//        }
+//        return result;
+//    }
+
+//    private List<Result> search(String input) {
+//        List<Result> results = new ArrayList<>();
+//        Queue<Result> minHeap = new PriorityQueue<>();
+//        for (String name : mNames) {
+//            int levenshteinDistance = StringUtils.getLevenshteinDistance(name, input);
+//            Result r = new Result();
+//            r.name = name;
+//            r.distance = levenshteinDistance;
+//            minHeap.add(r);
+//        }
+//        for (int i = 0; i < 5 && !minHeap.isEmpty(); i++) {
+//            results.add(minHeap.poll());
+//        }
+//        return results;
+//    }
+
+    private class Result implements Comparable<Result> {
+        int distance;
+        String name;
+
+        @Override
+        public int compareTo(Result another) {
+            return this.distance - another.distance;
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + name + ", distance=" + distance + "\n";
+        }
     }
 
 
