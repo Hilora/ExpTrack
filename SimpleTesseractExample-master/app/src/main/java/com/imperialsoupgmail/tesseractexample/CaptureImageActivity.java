@@ -11,6 +11,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -108,9 +109,6 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            if(imageBitmap!=null){
-                imageBitmap.recycle();
-            }
 
             imageBitmap = (Bitmap) extras.get("data");
 
@@ -123,7 +121,13 @@ public class CaptureImageActivity extends AppCompatActivity {
             }catch(Exception e){
 
             }
+
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,(int)(imageBitmap.getWidth()*0.2), (int)(imageBitmap.getHeight()*0.2), true);
+
             result.setImageBitmap(imageBitmap);
+
+
+
         }
     }
 
@@ -136,14 +140,8 @@ public class CaptureImageActivity extends AppCompatActivity {
             String url = "drawable/"+"test_image"+count;
             ++count;
             int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
-//
-//
-//
-            if(imageBitmap!=null){
-                imageBitmap.recycle();
-            }
-            imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
 
+            imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
 
             //result.setImageBitmap(imageBitmap);
             //result.setImageBitmap(rotateImage(imageBitmap, 90));
