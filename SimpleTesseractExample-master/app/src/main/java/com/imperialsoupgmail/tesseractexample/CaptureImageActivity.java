@@ -177,6 +177,18 @@ public class CaptureImageActivity extends AppCompatActivity {
 
                 tokens = value.split("Total");
 
+            }else if(value.contains("SUB IOIAL")){
+
+                tokens = value.split("SUB IOIAL");
+
+            }else if(value.contains("SUB TUTAL")){
+
+                tokens = value.split("SUB TUTAL");
+
+            }else if(value.contains("Het T003;")){
+
+                tokens = value.split("Het T003;");
+
             }else if(value.contains("Amount")){
 
                 tokens = value.split("Amount");
@@ -192,6 +204,10 @@ public class CaptureImageActivity extends AppCompatActivity {
             }else if(value.contains("|ToTnL=LKR")){
 
                 tokens = value.split("|ToTnL=LKR");
+
+            }else if(value.contains(".ToTnL=LKR")){
+
+                tokens = value.split(".ToTnL=LKR");
 
             }else if(value.contains("Amount Due:")){
 
