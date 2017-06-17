@@ -83,7 +83,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         Button click = (Button)findViewById(R.id.button4);
         result = (ImageView)findViewById(R.id.imageView2);
-         btnProcess = (Button)findViewById(R.id.btnProcess);
+        btnProcess = (Button)findViewById(R.id.btnProcess);
 
         init();
         //initialize Tesseract API
@@ -103,62 +103,61 @@ public class CaptureImageActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                Bundle extras = data.getExtras();
-                if(imageBitmap!=null){
-                    imageBitmap.recycle();
-                }
-
-                imageBitmap = (Bitmap) extras.get("data");
-
-
-                //--
-                try{
-                    //testing code
-                result.setImageBitmap(imageBitmap);
-                    //result.setImageBitmap(rotateImage(imageBitmap, 90));
-                }catch(Exception e){
-
-                }
-                result.setImageBitmap(imageBitmap);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            if(imageBitmap!=null){
+                imageBitmap.recycle();
             }
-        }
 
+            imageBitmap = (Bitmap) extras.get("data");
 
-    public void loadImage() {
 
             //--
             try{
                 //testing code
-                String url = "drawable/"+"test_image"+count;
-                ++count;rjr
-                int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
-//
-//
-//
-                if(imageBitmap!=null){
-                    imageBitmap.recycle();
-                }
-                imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
-
-
-                //result.setImageBitmap(imageBitmap);
+                result.setImageBitmap(imageBitmap);
                 //result.setImageBitmap(rotateImage(imageBitmap, 90));
             }catch(Exception e){
 
             }
-
             result.setImageBitmap(imageBitmap);
+        }
+    }
+
+
+    public void loadImage() {
+
+        //--
+        try{
+            //testing code
+            String url = "drawable/"+"test_image"+count;
+            ++count;
+            int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+//
+//
+//
+            if(imageBitmap!=null){
+                imageBitmap.recycle();
+            }
+            imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
+
+
+            //result.setImageBitmap(imageBitmap);
+            //result.setImageBitmap(rotateImage(imageBitmap, 90));
+        }catch(Exception e){
+
+        }
+
+        result.setImageBitmap(imageBitmap);
 
     }
     public String extractTotal(String value){
 
         String firstToken ;
         String secondToken = null;
-        {jdk
 
         try{
             String[] tokens = value.split(" ");
@@ -202,8 +201,8 @@ public class CaptureImageActivity extends AppCompatActivity {
 
 
 
-             firstToken = tokens[0];
-             secondToken = tokens[1];
+            firstToken = tokens[0];
+            secondToken = tokens[1];
 
             System.out.println("--- FirstToken ---- "+ firstToken);
             System.out.println("--- SecondToken ---- "+ secondToken);
@@ -214,7 +213,6 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         return secondToken;
     }
-
 
     private void checkFile(File dir) {
         if (!dir.exists()&& dir.mkdirs()){
@@ -335,8 +333,9 @@ public class CaptureImageActivity extends AppCompatActivity {
                 bmap.setPixel(i, j, Color.argb(255, gray, gray, gray));
             }
         }
-
+        return bmap;
     }
+
     // RemoveNoise
     private Bitmap removeNoise(Bitmap bmap) {
         for (int x = 0; x < bmap.getWidth(); x++) {
@@ -363,7 +362,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         String OCRresult = null;
         String value = null;
         //mTess.setImage(rotateImage(imageBitmap, 90));
-       mTess.setImage(imageBitmap);//testing code
+        mTess.setImage(imageBitmap);//testing code
         OCRresult = mTess.getUTF8Text();
 
         TextView OCRTextView = (TextView) findViewById(R.id.textView3);
@@ -376,6 +375,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         myIntent.putExtra("Total", value); //Optional parameters
         this.startActivity(myIntent);
     }
+
 
 
     public Bitmap rotateImage(Bitmap source, float angle) {
@@ -434,3 +434,4 @@ public class CaptureImageActivity extends AppCompatActivity {
 
 
 }
+
