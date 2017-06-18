@@ -290,6 +290,24 @@ public class CaptureImageActivity extends AppCompatActivity {
                 System.out.println("****** Balance Due ******");
                 validateRead();
 
+            }else if(value.contains("Total l pieces")){
+
+                tokens = value.split("Total l pieces");
+                System.out.println("****** Total l pieces ******");
+                validateRead();
+
+            }else if(value.contains("Subtotai")){
+
+                tokens = value.split("Subtotai");
+                System.out.println("****** Subtotai ******");
+                validateRead();
+
+            }else if(value.contains(".N- : ")){
+
+                tokens = value.split(".N- : ");
+                System.out.println("****** .N- :   ******");
+                validateRead();
+
             }
 
 
