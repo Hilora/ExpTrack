@@ -170,10 +170,16 @@ public class CaptureImageActivity extends AppCompatActivity {
                 System.out.println("****** TOTAL DUE ******");
                 validateRead();
 
-            }else if(value.contains("TOTAL")){
+            }else if(value.contains(" NET TOTAL I")){
 
-                tokens = value.split("TOTAL");
-                System.out.println("****** TOTAL ******");
+                tokens = value.split(" NET TOTAL I");
+                System.out.println("******  NET TOTAL I   ******");
+                validateRead();
+
+            }else if(value.contains("00000976 1")){
+
+                tokens = value.split("00000976 1");
+                System.out.println("****** 00000976 1 ******");
                 validateRead();
 
             }else if(value.contains("TOTAL:LKR")){
@@ -306,6 +312,12 @@ public class CaptureImageActivity extends AppCompatActivity {
 
                 tokens = value.split(".N- : ");
                 System.out.println("****** .N- :   ******");
+                validateRead();
+
+            }else if(value.contains("TOTAL")){
+
+                tokens = value.split("TOTAL");
+                System.out.println("****** TOTAL ******");
                 validateRead();
 
             }
