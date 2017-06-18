@@ -266,6 +266,18 @@ public class CaptureImageActivity extends AppCompatActivity {
                 System.out.println("****** 1T0TAL=LKR ******");
                 validateRead();
 
+            }else if(value.contains("Balame Due")){
+
+                tokens = value.split("Balame Due");
+                System.out.println("****** Balame Due ******");
+                validateRead();
+
+            }else if(value.contains("WELL:")){
+
+                tokens = value.split("WELL:");
+                System.out.println("****** WELL: ******");
+                validateRead();
+
             }
 
 
@@ -274,7 +286,6 @@ public class CaptureImageActivity extends AppCompatActivity {
             secondToken = tokens[1];
             //thrirdToken = tokens[2];
 
-            String testText = "Hello \n World OF Good";
 
             System.out.println("--- FirstToken ---- "+ firstToken);
             System.out.println("--- SecondToken ---- "+ secondToken);
