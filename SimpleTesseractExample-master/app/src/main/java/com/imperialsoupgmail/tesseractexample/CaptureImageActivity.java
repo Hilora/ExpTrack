@@ -49,6 +49,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     Button btnGallery ;
     Button btnProcess ;
     int count = 0;
+    boolean validValue = false;
 
     private static final String TAG = "LDSS";
     private EditText mNameField;
@@ -122,7 +123,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             }
 
-            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,(int)(imageBitmap.getWidth()*0.2), (int)(imageBitmap.getHeight()*0.2), true);
+           // imageBitmap = Bitmap.createScaledBitmap(imageBitmap,(int)(imageBitmap.getWidth()*0.2), (int)(imageBitmap.getHeight()*0.2), true);
 
             result.setImageBitmap(imageBitmap);
 
@@ -156,60 +157,114 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         String firstToken ;
         String secondToken = null;
+        validValue = false;
+
+        //String thrirdToken = null;
 
         try{
             String[] tokens = value.split(" ");
+
             if(value.contains("TOTAL DUE")){
 
                 tokens = value.split("TOTAL DUE");
+                System.out.println("****** TOTAL DUE ******");
+                validateRead();
 
             }else if(value.contains("TOTAL")){
 
                 tokens = value.split("TOTAL");
+                System.out.println("****** TOTAL ******");
+                validateRead();
 
             }else if(value.contains("TOTAL:LKR")){
 
                 tokens = value.split("TOTAL:LKR");
+                System.out.println("****** TOTAL:LKR ******");
+                validateRead();
 
             }else if(value.contains("Total")){
 
                 tokens = value.split("Total");
+                System.out.println("****** Total ******");
+                validateRead();
 
             }else if(value.contains("SUB IOIAL")){
 
                 tokens = value.split("SUB IOIAL");
+                System.out.println("****** SUB IOIAL ******");
+                validateRead();
 
             }else if(value.contains("SUB TUTAL")){
 
                 tokens = value.split("SUB TUTAL");
+                System.out.println("****** SUB TUTAL ******");
+                validateRead();
 
             }else if(value.contains("Het T003;")){
 
                 tokens = value.split("Het T003;");
+                System.out.println("****** Het T003; ******");
+                validateRead();
 
             }else if(value.contains("Amount")){
 
                 tokens = value.split("Amount");
+                System.out.println("****** Amount ******");
+                validateRead();
 
             }else if(value.contains("AMOUNT")){
 
                 tokens = value.split("AMOUNT");
+                System.out.println("****** AMOUNT ******");
+                validateRead();
 
             }else if(value.contains("Net Total")){
 
                 tokens = value.split("Net Total");
+                System.out.println("****** Net Total ******");
+                validateRead();
 
             }else if(value.contains("|ToTnL=LKR")){
 
                 tokens = value.split("|ToTnL=LKR");
+                System.out.println("****** |ToTnL=LKR ******");
+                validateRead();
 
             }else if(value.contains(".ToTnL=LKR")){
 
                 tokens = value.split(".ToTnL=LKR");
+                System.out.println("****** TOTAL:LKR ******");
+                validateRead();
 
             }else if(value.contains("Amount Due:")){
 
                 tokens = value.split("Amount Due:");
+                System.out.println("****** Amount Due:  ******");
+                validateRead();
+
+            }else if(value.contains("Amount Due: ")){
+
+                tokens = value.split("Amount Due: ");
+                System.out.println("****** Amount Due: ******");
+                validateRead();
+
+            }else if(value.contains("lToTnL=LKR")){
+
+                tokens = value.split("lToTnL=LKR");
+                System.out.println("****** lToTnL=LKR ******");
+                validateRead();
+
+            }else if(value.contains("|TOTRL.2LKR")){
+
+                tokens = value.split("|TOTRL.2LKR");
+                System.out.println("****** |TOTRL.2LKR ******");
+                validateRead();
+
+            }else if(value.contains("1T0TAL=LKR")){
+
+                tokens = value.split("1T0TAL=LKR");
+                System.out.println("****** 1T0TAL=LKR ******");
+                validateRead();
 
             }
 
@@ -217,15 +272,62 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             firstToken = tokens[0];
             secondToken = tokens[1];
+            //thrirdToken = tokens[2];
+
+            String testText = "Hello \n World OF Good";
 
             System.out.println("--- FirstToken ---- "+ firstToken);
             System.out.println("--- SecondToken ---- "+ secondToken);
+            System.out.println("--- Value ---- "+ secondToken.split("\n",2)[0]);
+            secondToken = secondToken.split("\n",2)[0];
+
+
+            int wordCount = secondToken.trim().isEmpty() ? 0 : secondToken.trim().split("\\s+").length;
+            System.out.println("--- No of sets detected ---- "+ wordCount);
+
+            if (wordCount>1){
+
+                String words[] = secondToken.split(" ");
+                for (String s: words) {
+                    if(isNumeric(s)){
+
+                        System.out.println("====== Words Detected ====== "+ s);
+                    }
+
+                }
+
+            }
+
 
         }catch(Exception e){
 
         }
 
+        if (validValue == false){
+            secondToken = "Please Retake Image...";
+
+        }else{
+            validValue = false;
+        }
+
         return secondToken;
+    }
+
+    public void validateRead(){
+        validValue = true;
+    }
+
+    public boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
     private void checkFile(File dir) {
@@ -384,7 +486,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         //System.out.println("Extracted Text "+ OCRresult);
         value = extractTotal(OCRresult);
-        System.out.println("Extracted Text "+ OCRresult);
+        System.out.println("Extracted Text -----"+ OCRresult);
         Intent myIntent = new Intent(this, SummaryViewActivity.class);
         myIntent.putExtra("Total", value); //Optional parameters
         this.startActivity(myIntent);
