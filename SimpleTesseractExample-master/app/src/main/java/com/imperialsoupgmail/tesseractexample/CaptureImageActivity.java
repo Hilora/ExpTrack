@@ -278,6 +278,18 @@ public class CaptureImageActivity extends AppCompatActivity {
                 System.out.println("****** WELL: ******");
                 validateRead();
 
+            }else if(value.contains("Net Amount 92 . 5")){
+
+                tokens = value.split("Net Amount 92 . 5");
+                System.out.println("****** hI . 5 ******");
+                validateRead();
+
+            }else if(value.contains("Balance Due")){
+
+                tokens = value.split("Balance Due");
+                System.out.println("****** Balance Due ******");
+                validateRead();
+
             }
 
 
