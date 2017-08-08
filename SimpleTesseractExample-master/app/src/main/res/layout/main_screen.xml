@@ -24,7 +24,7 @@
         android:layout_below="@+id/button2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
-        android:id="@+id/button3" />
+        android:id="@+id/btnBills" />
 
     <Button
         android:text="Reports"
@@ -33,5 +33,5 @@
         android:layout_marginTop="58dp"
         android:id="@+id/button2"
         android:layout_below="@+id/btnCamera"
-        android:layout_alignStart="@+id/button3" />
+        android:layout_alignStart="@+id/btnBills" />
 </RelativeLayout>
