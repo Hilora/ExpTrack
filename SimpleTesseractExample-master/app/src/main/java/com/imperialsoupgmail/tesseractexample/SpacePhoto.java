@@ -11,6 +11,7 @@ public class SpacePhoto implements Parcelable {
 
     private String mUrl;
     private String mTitle;
+    SpacePhoto[] test ;
 
     public SpacePhoto(String url, String title) {
         mUrl = url;
@@ -52,25 +53,28 @@ public class SpacePhoto implements Parcelable {
 
     public static  SpacePhoto[] getSpacePhotos() {
 
+
+
         return new SpacePhoto[]{
-                new SpacePhoto("http://i.imgur.com/zuG2bGQ.jpg", "Galaxy"),
-                new SpacePhoto("http://i.imgur.com/ovr0NAF.jpg", "Space Shuttle"),
-                new SpacePhoto("http://i.imgur.com/n6RfJX2.jpg", "Galaxy Orion"),
-                new SpacePhoto("http://i.imgur.com/qpr5LR2.jpg", "Earth"),
-                new SpacePhoto("http://i.imgur.com/pSHXfu5.jpg", "Astronaut"),
-                new SpacePhoto("http://i.imgur.com/3wQcZeY.jpg", "Satellite"),
-                new SpacePhoto("http://i.imgur.com/zuG2bGQ.jpg", "Galaxy"),
-                new SpacePhoto("http://i.imgur.com/ovr0NAF.jpg", "Space Shuttle"),
-                new SpacePhoto("http://i.imgur.com/n6RfJX2.jpg", "Galaxy Orion"),
-                new SpacePhoto("http://i.imgur.com/qpr5LR2.jpg", "Earth"),
-                new SpacePhoto("http://i.imgur.com/pSHXfu5.jpg", "Astronaut"),
-                new SpacePhoto("http://i.imgur.com/3wQcZeY.jpg", "Satellite"),
-                new SpacePhoto("http://i.imgur.com/zuG2bGQ.jpg", "Galaxy"),
-                new SpacePhoto("http://i.imgur.com/ovr0NAF.jpg", "Space Shuttle"),
-                new SpacePhoto("http://i.imgur.com/n6RfJX2.jpg", "Galaxy Orion"),
-                new SpacePhoto("http://i.imgur.com/qpr5LR2.jpg", "Earth"),
-                new SpacePhoto("http://i.imgur.com/pSHXfu5.jpg", "Astronaut"),
-                new SpacePhoto("http://i.imgur.com/3wQcZeY.jpg", "Satellite")
+                new SpacePhoto("http://i.imgur.com/CNmIkxo.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/ZoxVBd7.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/dofvmKv.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/S9kQaOx.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/4kStguh.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/pWrbElx.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/eTCFbha.jpg?1", "Image"),
+                new SpacePhoto("http://i.imgur.com/69SHrAr.jpg","Image"),
+
+                new SpacePhoto("http://i.imgur.com/0xkpKTJ.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/tWPvyye.jpg","Image"),
+                new SpacePhoto("http://i.imgur.com/psk1CDF.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/BXivMQ6.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/5I6TJd8.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/xx2sQCG.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/JsutWgT.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/arAHohR.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/e3cQ0gF.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/s2Ky5tS.jpg", "Image"),
 
         };
     }
