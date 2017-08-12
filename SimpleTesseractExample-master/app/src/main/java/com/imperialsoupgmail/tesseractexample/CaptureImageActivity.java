@@ -314,6 +314,12 @@ public class CaptureImageActivity extends AppCompatActivity {
                 System.out.println("****** .N- :   ******");
                 validateRead();
 
+            }else if(value.contains("N- =")){
+
+                tokens = value.split("N- =");
+                System.out.println("******.N- =  ******");
+                validateRead();
+
             }else if(value.contains("TOTAL")){
 
                 tokens = value.split("TOTAL");
