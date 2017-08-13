@@ -13,12 +13,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-/**
- * Created by Chike on 2/12/2017.
- */
 
 public class SpacePhotoActivity extends AppCompatActivity {
 
+    public static Bitmap bitmap_img ;
     public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
 
     private ImageView mImageView;
@@ -46,6 +44,7 @@ public class SpacePhotoActivity extends AppCompatActivity {
                     public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
 
                         onPalette(Palette.from(resource).generate());
+                        bitmap_img = resource;
                         mImageView.setImageBitmap(resource);
 
                         return false;
@@ -57,6 +56,8 @@ public class SpacePhotoActivity extends AppCompatActivity {
                             parent.setBackgroundColor(palette.getDarkVibrantColor(Color.GRAY));
                         }
                     }
+
+
                 })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mImageView);

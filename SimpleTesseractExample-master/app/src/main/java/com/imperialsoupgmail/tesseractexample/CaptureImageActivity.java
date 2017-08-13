@@ -132,7 +132,6 @@ public class CaptureImageActivity extends AppCompatActivity {
         }
     }
 
-
     public void loadImage() {
 
         //--
@@ -153,6 +152,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         result.setImageBitmap(imageBitmap);
 
     }
+
     public String extractTotal(String value){
 
         String firstToken ;
