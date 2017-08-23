@@ -14,6 +14,8 @@
     tools:showIn="@layout/activity_main_screen">
 
 
+
+
         <Button
             android:text="Capture Image"
             android:layout_width="wrap_content"
@@ -40,5 +42,17 @@
             android:id="@+id/button2"
             android:layout_below="@+id/btnCamera"
             android:layout_alignStart="@+id/btnBills" />
-    </RelativeLayout>
+
+        <Button
+            android:text="Capture Image 2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCamera2"
+            android:layout_marginTop="27dp"
+            android:layout_below="@+id/btnBills"
+            android:layout_alignEnd="@+id/btnCamera" />
+
+
+
+</RelativeLayout>
 

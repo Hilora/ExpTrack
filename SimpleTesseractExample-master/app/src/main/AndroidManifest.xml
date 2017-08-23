@@ -44,6 +44,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".SpaceGalleryActivity" />
         <activity android:name=".SpacePhotoActivity" />
+        <activity android:name=".PhotoDetailActivity" />
     </application>
 
 </manifest>

@@ -1,12 +1,16 @@
 package com.imperialsoupgmail.tesseractexample;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,15 +23,31 @@ public class SpacePhotoActivity extends AppCompatActivity {
     public static Bitmap bitmap_img ;
     public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
 
+
     private ImageView mImageView;
+    public static Button btn_img_process;
+    ImageProccessing imageProccessing;
+    TextView textView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_detail);
 
+         imageProccessing = new ImageProccessing();
+        textView = (TextView) findViewById(R.id.textView3);
+
         mImageView = (ImageView) findViewById(R.id.image);
+        btn_img_process = (Button)findViewById(R.id.btn_img_process);
+
+        btn_img_process.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openCaptureImage(v);
+            }
+        });
         SpacePhoto spacePhoto = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
+
 
         Glide.with(this)
                 .load(spacePhoto.getUrl())
@@ -62,6 +82,20 @@ public class SpacePhotoActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mImageView);
 
+    }
+
+
+
+    public void openCaptureImage(View view){
+
+         String value = imageProccessing.processImage(view,bitmap_img,textView);
+
+
+
+
+        Intent my = new Intent(this, SummaryViewActivity.class);
+        my.putExtra("Total", value); //Optional parameters
+        startActivity(my);
     }
 
    /* private SimpleTarget target = new SimpleTarget<Bitmap>() {

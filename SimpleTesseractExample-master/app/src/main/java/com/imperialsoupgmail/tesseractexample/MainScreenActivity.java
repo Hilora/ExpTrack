@@ -14,9 +14,11 @@ public class MainScreenActivity extends AppCompatActivity {
 
 
 
+
     public void init() {
         btnCamera = (Button)findViewById(R.id.btnCamera);
         btnBills = (Button)findViewById(R.id.btnBills);
+
         btnCamera.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -29,7 +31,9 @@ public class MainScreenActivity extends AppCompatActivity {
                 openGallery(v);
             }
         });
+
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
