@@ -585,8 +585,11 @@ public class CaptureImageActivity extends AppCompatActivity {
         if(isRemoteImage == true){
 //            result.buildDrawingCache(true);
 //            Bitmap bitmap = Bitmap.createBitmap(result.getDrawingCache());
+
+            result.buildDrawingCache();
+            Bitmap bmap = result.getDrawingCache();
 //
-//            imageBitmap = bitmap;
+            imageBitmap = bmap;
 //            result.setDrawingCacheEnabled(false);
         }
 
