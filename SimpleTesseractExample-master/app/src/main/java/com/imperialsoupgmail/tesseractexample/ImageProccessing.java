@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * Created by lightway on 8/23/17.
- */
+
 
 public class ImageProccessing {
 
@@ -41,18 +39,18 @@ public class ImageProccessing {
 
     private void checkFile(File dir) {
         if (!dir.exists()&& dir.mkdirs()){
-            copyFiles();
+            //copyFiles();
         }
         if(dir.exists()) {
             String datafilepath = datapath+ "/tessdata/eng.traineddata";
             File datafile = new File(datafilepath);
 
             if (!datafile.exists()) {
-                copyFiles();
+                //copyFiles();
             }
         }
     }
-
+/*
     private void copyFiles() {
         try {
             String filepath = datapath + "/tessdata/eng.traineddata";
@@ -82,6 +80,7 @@ public class ImageProccessing {
             e.printStackTrace();
         }
     }
+    */
 
     public String processImage(View view,Bitmap imageBitmap,TextView OCRView){
 

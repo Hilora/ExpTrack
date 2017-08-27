@@ -3,10 +3,6 @@ package com.imperialsoupgmail.tesseractexample;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Chike on 2/11/2017.
- */
-
 public class SpacePhoto implements Parcelable {
 
     private String mUrl;

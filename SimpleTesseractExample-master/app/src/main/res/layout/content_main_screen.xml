@@ -43,16 +43,6 @@
             android:layout_below="@+id/btnCamera"
             android:layout_alignStart="@+id/btnBills" />
 
-        <Button
-            android:text="Capture Image 2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnCamera2"
-            android:layout_marginTop="27dp"
-            android:layout_below="@+id/btnBills"
-            android:layout_alignEnd="@+id/btnCamera" />
-
-
 
 </RelativeLayout>
 

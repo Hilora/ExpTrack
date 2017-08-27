@@ -82,11 +82,29 @@ public class SpaceGalleryActivity extends AppCompatActivity {
 
                 int position = getAdapterPosition();
                 if(position != RecyclerView.NO_POSITION) {
-                    SpacePhoto spacePhoto = mSpacePhotos[position];
 
-                    Intent intent = new Intent(mContext, SpacePhotoActivity.class);
-                    intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
-                    startActivity(intent);
+            try {
+                SpacePhoto spacePhoto = mSpacePhotos[position];
+                boolean isRemoteImage = true;
+//                Intent intent = new Intent(mContext, SpacePhotoActivity.class);
+//
+//                intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
+//
+//                startActivity(intent);
+
+                Intent myIntent = new Intent(mContext, CaptureImageActivity.class);
+                myIntent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
+                myIntent.putExtra("position", position);
+                myIntent.putExtra("key", isRemoteImage);
+                startActivity(myIntent);
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
                 }
             }
         }

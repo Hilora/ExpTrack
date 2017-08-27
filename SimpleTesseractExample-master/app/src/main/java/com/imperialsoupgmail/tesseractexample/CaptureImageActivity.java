@@ -1,5 +1,6 @@
 package com.imperialsoupgmail.tesseractexample;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,13 +17,19 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 import java.io.BufferedReader;
@@ -41,7 +49,9 @@ import java.util.Queue;
 public class CaptureImageActivity extends AppCompatActivity {
 
     ImageView result;
+    public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    public boolean isRemoteImage = false;
 
     private TessBaseAPI mTess;
     String datapath = "";
@@ -49,13 +59,15 @@ public class CaptureImageActivity extends AppCompatActivity {
     Button btnGallery ;
     Button btnProcess ;
     int count = 0;
+    int position = 0;
     boolean validValue = false;
 
     private static final String TAG = "LDSS";
     private EditText mNameField;
     private TextView mSearchResult;
     private List<String> mNames;
-
+    private SpacePhoto[] mSpacePhotos;
+    SpacePhoto spacePhoto ;
 
 
     public void init() {
@@ -74,6 +86,7 @@ public class CaptureImageActivity extends AppCompatActivity {
                 loadImage();
             }
         });
+
     }
 
     @Override
@@ -83,11 +96,18 @@ public class CaptureImageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mSpacePhotos = SpacePhoto.getSpacePhotos();
         Button click = (Button)findViewById(R.id.button4);
         result = (ImageView)findViewById(R.id.imageView2);
         btnProcess = (Button)findViewById(R.id.btnProcess);
-
+        spacePhoto = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
+        isRemoteImage = getIntent().getBooleanExtra("key",isRemoteImage);
+        position = getIntent().getIntExtra("position",position);
+        System.out.println("Is Remote image state : "+isRemoteImage);
         init();
+
+        loadRemoteImage();
+
         //initialize Tesseract API
         String language = "eng";
         datapath = getFilesDir()+ "/tesseract/";
@@ -96,6 +116,8 @@ public class CaptureImageActivity extends AppCompatActivity {
         checkFile(new File(datapath + "tessdata/"));
 
         mTess.init(datapath, language);
+
+
 
     }
 
@@ -132,22 +154,48 @@ public class CaptureImageActivity extends AppCompatActivity {
         }
     }
 
-    public void loadImage() {
+    void loadRemoteImage(){
 
-        //--
-        try{
-            //testing code
-            String url = "drawable/"+"test_image"+count;
-            ++count;
-            int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+        if(isRemoteImage == true){
 
-            imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
+            SpacePhoto spacePhoto = mSpacePhotos[position];
 
-            //result.setImageBitmap(imageBitmap);
-            //result.setImageBitmap(rotateImage(imageBitmap, 90));
-        }catch(Exception e){
+
+            Glide.with(this)
+                    .load(spacePhoto.getUrl()).asBitmap()
+                    .into(result);
+            System.out.println("Loading image...");
+
+            try{
+                Bitmap theBitmap  = Glide.with(this)
+                 .load(spacePhoto.getUrl()).asBitmap().into(100,100).get();
+
+                imageBitmap = theBitmap;
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+
 
         }
+
+    }
+
+    public void loadImage() {
+
+        try{
+                //testing code
+                String url = "drawable/"+"test_image"+count;
+                ++count;
+                int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
+
+                imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
+
+                //result.setImageBitmap(imageBitmap);
+                //result.setImageBitmap(rotateImage(imageBitmap, 90));
+            }catch(Exception e){
+
+            }
 
         result.setImageBitmap(imageBitmap);
 
@@ -534,21 +582,33 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     public void processImage(View view){
 
-        String OCRresult = null;
-        String value = null;
-        //mTess.setImage(rotateImage(imageBitmap, 90));
-        mTess.setImage(imageBitmap);//testing code
-        OCRresult = mTess.getUTF8Text();
+        if(isRemoteImage == true){
+//            result.buildDrawingCache(true);
+//            Bitmap bitmap = Bitmap.createBitmap(result.getDrawingCache());
+//
+//            imageBitmap = bitmap;
+//            result.setDrawingCacheEnabled(false);
+        }
 
-        TextView OCRTextView = (TextView) findViewById(R.id.textView3);
-        //OCRTextView.setText(OCRresult);
+        if(imageBitmap!=null){
+            System.out.println("-----------Tess image loading----------");
+            String OCRresult = null;
+            String value = null;
+            //mTess.setImage(rotateImage(imageBitmap, 90));
+            mTess.setImage(imageBitmap);//testing code
+            OCRresult = mTess.getUTF8Text();
 
-        //System.out.println("Extracted Text "+ OCRresult);
-        value = extractTotal(OCRresult);
-        System.out.println("Extracted Text -----"+ OCRresult);
-        Intent myIntent = new Intent(this, SummaryViewActivity.class);
-        myIntent.putExtra("Total", value); //Optional parameters
-        this.startActivity(myIntent);
+            TextView OCRTextView = (TextView) findViewById(R.id.textView3);
+            //OCRTextView.setText(OCRresult);
+
+            //System.out.println("Extracted Text "+ OCRresult);
+            value = extractTotal(OCRresult);
+            System.out.println("Extracted Text -----"+ OCRresult);
+            Intent myIntent = new Intent(this, SummaryViewActivity.class);
+            myIntent.putExtra("Total", value); //Optional parameters
+            this.startActivity(myIntent);
+        }
+
     }
 
 

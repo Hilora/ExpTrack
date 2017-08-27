@@ -46,6 +46,7 @@ public class SpacePhotoActivity extends AppCompatActivity {
                 openCaptureImage(v);
             }
         });
+
         SpacePhoto spacePhoto = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
 
 
