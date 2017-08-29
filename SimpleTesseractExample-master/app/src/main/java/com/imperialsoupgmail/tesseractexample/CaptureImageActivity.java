@@ -58,6 +58,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     Bitmap imageBitmap ;
     Button btnGallery ;
     Button btnProcess ;
+    Button btnEnhance ;
     int count = 0;
     int position = 0;
     boolean validValue = false;
@@ -84,6 +85,23 @@ public class CaptureImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 loadImage();
+            }
+        });
+
+        btnEnhance = (Button)findViewById(R.id.btnEnhance);
+        btnEnhance.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try{
+                    System.out.println("Enhancing Image...");
+                    imageBitmap= setGrayscale(imageBitmap);
+                    imageBitmap= setGrayscale(imageBitmap);
+                    //imageBitmap = removeNoise(imageBitmap);
+                    result.setImageBitmap(imageBitmap);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -166,14 +184,14 @@ public class CaptureImageActivity extends AppCompatActivity {
                     .into(result);
             System.out.println("Loading image...");
 
-            try{
-                Bitmap theBitmap  = Glide.with(this)
-                 .load(spacePhoto.getUrl()).asBitmap().into(100,100).get();
-
-                imageBitmap = theBitmap;
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+//            try{
+//                Bitmap theBitmap  = Glide.with(this)
+//                 .load(spacePhoto.getUrl()).asBitmap().into(100,100).get();
+//
+//                imageBitmap = theBitmap;
+//            }catch(Exception e){
+//                e.printStackTrace();
+//            }
 
 
 
@@ -191,8 +209,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
                 imageBitmap = BitmapFactory.decodeResource(getResources(), imageKey);
 
-                //result.setImageBitmap(imageBitmap);
-                //result.setImageBitmap(rotateImage(imageBitmap, 90));
+            //imageBitmap = setGrayscale(imageBitmap);
+
+
             }catch(Exception e){
 
             }
@@ -583,8 +602,6 @@ public class CaptureImageActivity extends AppCompatActivity {
     public void processImage(View view){
 
         if(isRemoteImage == true){
-//            result.buildDrawingCache(true);
-//            Bitmap bitmap = Bitmap.createBitmap(result.getDrawingCache());
 
             result.buildDrawingCache();
             Bitmap bmap = result.getDrawingCache();
@@ -598,6 +615,7 @@ public class CaptureImageActivity extends AppCompatActivity {
             String OCRresult = null;
             String value = null;
             //mTess.setImage(rotateImage(imageBitmap, 90));
+
             mTess.setImage(imageBitmap);//testing code
             OCRresult = mTess.getUTF8Text();
 

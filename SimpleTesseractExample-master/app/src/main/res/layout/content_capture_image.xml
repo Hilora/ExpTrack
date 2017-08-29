@@ -63,4 +63,12 @@
         android:layout_toEndOf="@+id/button4"
         android:id="@+id/btnGallery" />
 
+    <Button
+        android:id="@+id/btnEnhance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button4"
+        android:layout_below="@+id/button4"
+        android:text="Enhance" />
+
 </RelativeLayout>
