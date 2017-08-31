@@ -45,9 +45,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import com.algorithmia.*;
+import com.algorithmia.algo.*;
+
 
 public class CaptureImageActivity extends AppCompatActivity {
 
+    private static final int PIXEL_TOLERANCE_VALUE = 50;
     ImageView result;
     public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -94,9 +98,12 @@ public class CaptureImageActivity extends AppCompatActivity {
             public void onClick(View v){
                 try{
                     System.out.println("Enhancing Image...");
-                    imageBitmap= setGrayscale(imageBitmap);
-                    imageBitmap= setGrayscale(imageBitmap);
+                   // imageBitmap = setGrayscale(imageBitmap);
+                   // imageBitmap = setGrayscale(imageBitmap);
                     //imageBitmap = removeNoise(imageBitmap);
+
+                    imageBitmap = generateEdgeImage(imageBitmap,300,300);
+
                     result.setImageBitmap(imageBitmap);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -431,6 +438,20 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         if (validValue == false){
             secondToken = "Please Retake Image...";
+            System.out.println("------------Calling algorithmia------------");
+//            try{
+//                //String input = "http://i.imgur.com/CNmIkxo.jpg";
+//                String input = "\"data://lightway/images/test_image23.jpg\"";
+//                AlgorithmiaClient client = Algorithmia.client("simGOeJ6EkwUyE2zMa8BfjUVlUz1");
+//                Algorithm algo = client.algo("algo://ocr/ReceiptRecognition/0.1.6");
+//                AlgoResponse result = algo.pipeJson(input);
+//                System.out.println(result.asJsonString());
+//
+//                System.out.println("------------Calling algorithmia done------------");
+//            }catch(Exception e){
+//                e.printStackTrace();
+//            }
+
 
         }else{
             validValue = false;
@@ -627,6 +648,17 @@ public class CaptureImageActivity extends AppCompatActivity {
             System.out.println("Extracted Text -----"+ OCRresult);
             Intent myIntent = new Intent(this, SummaryViewActivity.class);
             myIntent.putExtra("Total", value); //Optional parameters
+            try {
+                if(value.contains("$")){
+                    myIntent.putExtra("Currency", "Dollors"); //Optional parameters
+                }else if(value.contains("LKR")){
+                    myIntent.putExtra("Currency", "Sri Lankan Rupees"); //Optional parameters
+                } if(value.contains("¥")){
+                    myIntent.putExtra("Currency", "Yen"); //Optional parameters
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             this.startActivity(myIntent);
         }
 
@@ -639,6 +671,39 @@ public class CaptureImageActivity extends AppCompatActivity {
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
                 true);
+    }
+
+    public Bitmap generateEdgeImage(Bitmap highContrastGreyImage, int width, int height) {
+        Bitmap edgeImg = Bitmap.createBitmap(width, height, highContrastGreyImage.getConfig());
+
+        int x = 0, y = 0;
+        int left = 0, upper = 0, rightUpper = 0;
+
+        for(x = 0; x < width; x++) {
+            for(y = 0; y < height; y++) {
+                if(0 < x && x < width-1 && 0 < y && y < height) {
+                    int pixel = Color.blue(highContrastGreyImage.getPixel(x, y));
+                    int pixelLeft = Color.blue(highContrastGreyImage.getPixel(x - 1, y));
+                    left = pixel - pixelLeft;
+
+                    int pixelUp = Color.blue(highContrastGreyImage.getPixel(x, y - 1));
+                    upper = pixel - pixelUp;
+
+                    int pixelRU = Color.blue(highContrastGreyImage.getPixel(x + 1, y - 1));
+                    rightUpper = pixel - pixelRU;
+
+                    int pixelMax = Math.max(left, Math.max(upper, rightUpper));
+
+                    if(pixelMax < PIXEL_TOLERANCE_VALUE) {
+                        edgeImg.setPixel(x, y, Color.rgb(0, 0, 0));
+                    } else {
+                        edgeImg.setPixel(x, y, Color.rgb(pixelMax, pixelMax, pixelMax));
+                    }
+                }
+            }
+        }
+
+        return edgeImg;
     }
 
 //    private List<String> loadNames() {

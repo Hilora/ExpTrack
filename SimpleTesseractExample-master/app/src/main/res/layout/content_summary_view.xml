@@ -14,15 +14,15 @@
     tools:showIn="@layout/activity_summary_view">
 
     <EditText
+        android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_below="@+id/editText"
         android:layout_alignEnd="@+id/editText"
+        android:layout_below="@+id/editText"
         android:layout_marginTop="38dp"
-        android:id="@+id/editText2"
-        android:text="Date" />
+        android:ems="10"
+        android:inputType="date"
+        android:text="Currency" />
 
     <EditText
         android:layout_width="wrap_content"

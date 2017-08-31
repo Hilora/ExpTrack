@@ -19,15 +19,17 @@ public class SummaryViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         EditText txtTotal = (EditText) findViewById(R.id.txtTotal);
-
+        EditText txtDate = (EditText) findViewById(R.id.txtDate);
 
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
 
 //Extract the data…
         String total = bundle.getString("Total");
+        String currency = bundle.getString("Currency");
 
         txtTotal.setText(total);
+        txtDate.setText(currency);
 
     }
 

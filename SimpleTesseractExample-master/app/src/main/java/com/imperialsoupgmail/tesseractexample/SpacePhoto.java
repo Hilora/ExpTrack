@@ -52,6 +52,9 @@ public class SpacePhoto implements Parcelable {
 
 
         return new SpacePhoto[]{
+                new SpacePhoto("http://i.imgur.com/jwZt4Hf.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/pyd8LwM.jpg", "Image"),
+                new SpacePhoto("http://i.imgur.com/5I6TJd8.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/CNmIkxo.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/ZoxVBd7.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/dofvmKv.jpg", "Image"),
@@ -64,7 +67,6 @@ public class SpacePhoto implements Parcelable {
                 new SpacePhoto("http://i.imgur.com/tWPvyye.jpg","Image"),
                 new SpacePhoto("http://i.imgur.com/psk1CDF.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/BXivMQ6.jpg", "Image"),
-                new SpacePhoto("http://i.imgur.com/5I6TJd8.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/xx2sQCG.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/JsutWgT.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/arAHohR.jpg", "Image"),
@@ -165,7 +167,7 @@ public class SpacePhoto implements Parcelable {
                 new SpacePhoto("http://i.imgur.com/Y3ljNBJ.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/cW2qtrb.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/ZW0Zcr2.jpg", "Image"),
-                new SpacePhoto("http://i.imgur.com/pyd8LwM.jpg", "Image"),
+
                 new SpacePhoto("http://i.imgur.com/r1miMZD.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/WCZIo0K.jpg", "Image"),
                 new SpacePhoto("http://i.imgur.com/pbgSoSn.jpg", "Image"),

@@ -20,18 +20,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.rmtheis:tess-two:5.4.1'
     compile 'com.android.support:design:23.4.0'
     testCompile 'junit:junit:4.12'
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     // Recyclerview
     compile 'com.android.support:recyclerview-v7:23.1.1'
-
     // palette
     compile 'com.android.support:palette-v7:23.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    compile files('build/libs/algorithmia-client-1.0.13.jar')
+    compile files('build/libs/commons-codec-1.9.jar')
+    compile files('build/libs/commons-io-2.5.jar')
+    compile files('build/libs/commons-logging-1.2.jar')
+    compile files('build/libs/gson-2.6.2.jar')
 }
