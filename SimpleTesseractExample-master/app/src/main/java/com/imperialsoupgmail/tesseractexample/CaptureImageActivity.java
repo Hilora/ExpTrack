@@ -67,6 +67,8 @@ public class CaptureImageActivity extends AppCompatActivity {
     Button btnGallery ;
     Button btnProcess ;
     Button btnEnhance ;
+    Button btnSharp ;
+    Button btnRemove ;
     int count = 0;
     int position = 0;
     boolean validValue = false;
@@ -106,12 +108,63 @@ public class CaptureImageActivity extends AppCompatActivity {
                     imageBitmap = setGrayscale(imageBitmap);
                     //imageBitmap = removeNoise(imageBitmap);
 
-                    imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
+                    //imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
                     //imageBitmap = sharpen(imageBitmap,0.1);
-//                    float[] sharp = { -0.60f, -0.60f, -0.60f, -0.60f, 5.81f, -0.60f,
-//                            -0.60f, -0.60f, -0.60f };
-////you call the method above and just paste the bitmap you want to apply it and the float of above
-//                    imageBitmap = doSharpen(imageBitmap, sharp);
+
+
+
+                    result.setImageBitmap(imageBitmap);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        btnRemove = (Button)findViewById(R.id.btnRemove);
+        btnRemove.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try{
+
+                    imageBitmap = removeNoise(imageBitmap);
+
+
+
+                    result.setImageBitmap(imageBitmap);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        btnSharp = (Button)findViewById(R.id.btnSharp);
+        btnSharp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try{
+                    System.out.println("Enhancing Image...");
+                    //imageBitmap = setGrayscale(imageBitmap);
+                    //imageBitmap = setGrayscale(imageBitmap);
+                    //imageBitmap = removeNoise(imageBitmap);
+
+                    //imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
+                    //imageBitmap = sharpen(imageBitmap,0.1);
+
+                    float[] low = { -0.60f, -0.60f, -0.60f, -0.60f, 5.81f, -0.60f,
+                            -0.60f, -0.60f, -0.60f };
+
+                    float[] medium = { 0.0f, -1.0f, 0.0f, -1.0f, 5.0f, -1.0f, 0.0f, -1.0f,
+                            0.0f
+
+                    };
+
+                    float[] high = { -0.15f, -0.15f, -0.15f, -0.15f, 2.2f, -0.15f, -0.15f,
+                            -0.15f, -0.15f
+                    };
+                    imageBitmap = doSharpen(imageBitmap, high);
+
+
                     result.setImageBitmap(imageBitmap);
                 }catch(Exception e){
                     e.printStackTrace();

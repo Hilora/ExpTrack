@@ -46,6 +46,14 @@
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:id="@+id/btnSharp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button4"
+        android:layout_below="@+id/button4"
+        android:text="Sharp" />
+
+    <Button
         android:text="Capture Receipt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,8 +75,16 @@
         android:id="@+id/btnEnhance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button4"
+        android:text="Enhance"
         android:layout_below="@+id/button4"
-        android:text="Enhance" />
+        android:layout_toEndOf="@+id/btnSharp" />
+
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnProcess"
+        android:layout_toEndOf="@+id/btnEnhance"
+        android:text="Noise" />
 
 </RelativeLayout>
