@@ -14,6 +14,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicConvolve3x3;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -45,8 +49,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import com.algorithmia.*;
-import com.algorithmia.algo.*;
+//import com.algorithmia.*;
+//import com.algorithmia.algo.*;
 
 
 public class CaptureImageActivity extends AppCompatActivity {
@@ -103,7 +107,11 @@ public class CaptureImageActivity extends AppCompatActivity {
                     //imageBitmap = removeNoise(imageBitmap);
 
                     imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
-                    imageBitmap = sharpen(imageBitmap,1.0);
+                    //imageBitmap = sharpen(imageBitmap,0.1);
+//                    float[] sharp = { -0.60f, -0.60f, -0.60f, -0.60f, 5.81f, -0.60f,
+//                            -0.60f, -0.60f, -0.60f };
+////you call the method above and just paste the bitmap you want to apply it and the float of above
+//                    imageBitmap = doSharpen(imageBitmap, sharp);
                     result.setImageBitmap(imageBitmap);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -145,6 +153,8 @@ public class CaptureImageActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -650,17 +660,40 @@ public class CaptureImageActivity extends AppCompatActivity {
             myIntent.putExtra("Total", value); //Optional parameters
             try {
                 if(value.contains("$")){
-                    myIntent.putExtra("Currency", "Dollors"); //Optional parameters
-                }else if(value.contains("LKR")){
-                    myIntent.putExtra("Currency", "Sri Lankan Rupees"); //Optional parameters
-                } if(value.contains("¥")){
+                    myIntent.putExtra("Currency", "Dollars"); //Optional parameters
+                }else if(value.contains("¥")){
                     myIntent.putExtra("Currency", "Yen"); //Optional parameters
+                }else {
+                    myIntent.putExtra("Currency", "Sri Lankan Rupees"); //Optional parameters
                 }
             }catch (Exception e){
                 e.printStackTrace();
             }
             this.startActivity(myIntent);
         }
+
+    }
+
+    public Bitmap doSharpen(Bitmap original, float[] radius) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                original.getWidth(), original.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        RenderScript rs = RenderScript.create(this);
+
+        Allocation allocIn = Allocation.createFromBitmap(rs, original);
+        Allocation allocOut = Allocation.createFromBitmap(rs, bitmap);
+
+        ScriptIntrinsicConvolve3x3 convolution
+                = ScriptIntrinsicConvolve3x3.create(rs, Element.U8_4(rs));
+        convolution.setInput(allocIn);
+        convolution.setCoefficients(radius);
+        convolution.forEach(allocOut);
+
+        allocOut.copyTo(bitmap);
+        rs.destroy();
+
+        return bitmap;
 
     }
 

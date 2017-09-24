@@ -32,9 +32,4 @@ dependencies {
     // palette
     compile 'com.android.support:palette-v7:23.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
-    compile files('build/libs/algorithmia-client-1.0.13.jar')
-    compile files('build/libs/commons-codec-1.9.jar')
-    compile files('build/libs/commons-io-2.5.jar')
-    compile files('build/libs/commons-logging-1.2.jar')
-    compile files('build/libs/gson-2.6.2.jar')
 }
