@@ -98,12 +98,12 @@ public class CaptureImageActivity extends AppCompatActivity {
             public void onClick(View v){
                 try{
                     System.out.println("Enhancing Image...");
-                   // imageBitmap = setGrayscale(imageBitmap);
-                   // imageBitmap = setGrayscale(imageBitmap);
+                    imageBitmap = setGrayscale(imageBitmap);
+                    imageBitmap = setGrayscale(imageBitmap);
                     //imageBitmap = removeNoise(imageBitmap);
 
-                    imageBitmap = generateEdgeImage(imageBitmap,300,300);
-
+                    imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
+                    imageBitmap = sharpen(imageBitmap,1.0);
                     result.setImageBitmap(imageBitmap);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -664,7 +664,17 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     }
 
-
+    public static Bitmap sharpen(Bitmap src, double weight) {
+        double[][] SharpConfig = new double[][] {
+                { 0 , -2    , 0  },
+                { -2, weight, -2 },
+                { 0 , -2    , 0  }
+        };
+        ConvolutionMatrix convMatrix = new ConvolutionMatrix(3);
+        convMatrix.applyConfig(SharpConfig);
+        convMatrix.Factor = weight - 8;
+        return ConvolutionMatrix.computeConvolution3x3(src, convMatrix);
+    }
 
     public Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
