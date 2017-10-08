@@ -1,9 +1,11 @@
 package com.imperialsoupgmail.tesseractexample;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -23,12 +25,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -45,7 +49,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -60,6 +66,10 @@ public class CaptureImageActivity extends AppCompatActivity {
     public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public boolean isRemoteImage = false;
+
+
+    //private static final String TAG = "CaptureImageActivity";
+
 
     private TessBaseAPI mTess;
     String datapath = "";
@@ -79,6 +89,9 @@ public class CaptureImageActivity extends AppCompatActivity {
     private List<String> mNames;
     private SpacePhoto[] mSpacePhotos;
     SpacePhoto spacePhoto ;
+
+    String date;
+    String totalValue;
 
 
     public void init() {
@@ -827,6 +840,30 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         return edgeImg;
     }
+
+
+    private void saveToDB() {
+        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SampleDBContract.Expense.COLUMN_DATE, date);
+        values.put(SampleDBContract.Expense.COLUMN_TOTAL,totalValue);
+
+        long newRowId = database.insert(SampleDBContract.Expense.TABLE_NAME, null, values);
+
+        Toast.makeText(this, "The new Row Id is " + newRowId, Toast.LENGTH_LONG).show();
+    }
+
+//    private void readFromDB() {
+//        String firstname = binding.firstnameEditText.getText().toString();
+//        String lastname = binding.lastnameEditText.getText().toString();
+//
+//        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
+//
+//        String[] selectionArgs = {"%" + firstname + "%", "%" + lastname + "%"};
+//
+//        Cursor cursor = database.rawQuery(SampleDBContract.SELECT_Expense_WITH_EMPLOYER, selectionArgs);
+//        binding.recycleView.setAdapter(new SampleJoinRecyclerViewCursorAdapter(this, cursor));
+//    }
 
 //    private List<String> loadNames() {
 //        List<String> result = new ArrayList<String>();

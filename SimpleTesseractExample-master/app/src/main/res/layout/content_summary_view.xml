@@ -45,13 +45,13 @@
         android:layout_alignStart="@+id/editText2"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="96dp"
-        android:id="@+id/button5" />
+        android:id="@+id/btnSave" />
 
     <Button
         android:text="Close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button5"
+        android:layout_alignBottom="@+id/btnSave"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="70dp"
         android:id="@+id/button6" />
@@ -63,7 +63,7 @@
         android:text="0.00"
         android:ems="10"
         android:layout_alignTop="@+id/editText"
-        android:layout_toEndOf="@+id/button5"
+        android:layout_toEndOf="@+id/btnSave"
         android:id="@+id/txtTotal"
         android:layout_alignStart="@+id/button6" />
 
