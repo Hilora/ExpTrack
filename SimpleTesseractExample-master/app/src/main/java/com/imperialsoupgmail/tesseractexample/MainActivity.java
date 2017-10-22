@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         image = BitmapFactory.decodeResource(getResources(), p[0]);
 
+
         //initialize Tesseract API
         String language = "eng";
         datapath = getFilesDir()+ "/tesseract/";
@@ -66,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         mTess.init(datapath, language);
     }
+
+
+
 
     public void processImage(View view){
 
@@ -193,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
 
 
     //-----------

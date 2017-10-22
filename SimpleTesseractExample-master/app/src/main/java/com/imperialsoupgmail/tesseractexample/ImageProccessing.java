@@ -1,13 +1,13 @@
 package com.imperialsoupgmail.tesseractexample;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
+
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.TextView;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
-
+import android.content.res.AssetManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,6 +36,9 @@ public class ImageProccessing {
 //
 //
 //    }
+
+
+
 
     private void checkFile(File dir) {
         if (!dir.exists()&& dir.mkdirs()){

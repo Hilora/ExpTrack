@@ -40,6 +40,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -72,6 +75,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
 
     private TessBaseAPI mTess;
+
     String datapath = "";
     Bitmap imageBitmap ;
     Button btnGallery ;
@@ -79,6 +83,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     Button btnEnhance ;
     Button btnSharp ;
     Button btnRemove ;
+    String jsonString;
     int count = 0;
     int position = 0;
     boolean validValue = false;
@@ -209,6 +214,40 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
+         jsonString = loadJSONFromAsset();
+
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            JSONArray contacts = json.getJSONArray("data");
+
+
+
+            for (int i = 0; i < contacts.length(); i++) {
+                JSONObject c = contacts.getJSONObject(i);
+
+
+                String key = c.getString("key");
+                System.out.println("-----------------JSON read ---------------- "+key);
+
+//                // adding each child node to HashMap key => value
+//                contact.put("id", id);
+//                contact.put("name", name);
+//                contact.put("email", email);
+//                contact.put("mobile", mobile);
+//
+//                // adding contact to contact list
+//                contactList.add(contact);
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         //initialize Tesseract API
         String language = "eng";
         datapath = getFilesDir()+ "/tesseract/";
@@ -219,6 +258,32 @@ public class CaptureImageActivity extends AppCompatActivity {
         mTess.init(datapath, language);
 
 
+
+    }
+
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+
+            InputStream is = getAssets().open("content.json");
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
 
     }
 
@@ -307,7 +372,59 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     public String extractTotal(String value){
 
+
+
         String firstToken ;
+        String secondToken = null;
+        validValue = false;
+
+        String[] tokens = value.split(" ");
+
+        //--
+
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            JSONArray contacts = json.getJSONArray("data");
+
+
+            for (int i = 0; i < contacts.length(); i++) {
+                JSONObject c = contacts.getJSONObject(i);
+
+
+                String key = c.getString("key");
+                System.out.println("-----------------JSON read ---------------- "+key);
+
+
+
+                 if(value.contains(key)){
+
+                        tokens = value.split(key);
+                        System.out.println("****** "+key+"******");
+                        validateRead();
+                        break;
+                  }
+
+//                // adding each child node to HashMap key => value
+//                contact.put("id", id);
+//                contact.put("name", name);
+//                contact.put("email", email);
+//                contact.put("mobile", mobile);
+//
+//                // adding contact to contact list
+//                contactList.add(contact);
+            }
+
+
+
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        //--
+/*
+       String firstToken ;
         String secondToken = null;
         validValue = false;
 
@@ -480,7 +597,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             }
 
-
+*/
 
             firstToken = tokens[0];
             secondToken = tokens[1];
