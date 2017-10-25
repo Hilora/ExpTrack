@@ -56,6 +56,9 @@ public class MainScreenActivity extends AppCompatActivity {
     public void openGallery(View view){
         Intent myIntent = new Intent(this, SpaceGalleryActivity.class);
         this.startActivity(myIntent);
+
+
     }
+
 
 }
