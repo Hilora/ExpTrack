@@ -649,10 +649,10 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             Intent myIntent = new Intent(this, LearnReceiptActivity.class);
 //
-            myIntent.putExtra("Total", "test value"); //Optional parameters
+            myIntent.putExtra("Total", value); //Optional parameters
             try {
 
-                    myIntent.putExtra("Currency", "Dollars"); //Optional parameters
+                    myIntent.putExtra("Currency", ""); //Optional parameters
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -864,32 +864,31 @@ public class CaptureImageActivity extends AppCompatActivity {
             System.out.println("-----------Tess image loading----------");
             String OCRresult = null;
             String value = null;
-            //mTess.setImage(rotateImage(imageBitmap, 90));
+
 
             mTess.setImage(imageBitmap);//testing code
             OCRresult = mTess.getUTF8Text();
 
             TextView OCRTextView = (TextView) findViewById(R.id.textView3);
-            //OCRTextView.setText(OCRresult);
 
-            //System.out.println("Extracted Text "+ OCRresult);
             value = extractTotal(OCRresult);
             System.out.println("Extracted Text -----"+ OCRresult);
-
-                Intent myIntent = new Intent(this, SummaryViewActivity.class);
-                myIntent.putExtra("Total", value); //Optional parameters
-                try {
-                    if (value.contains("$")) {
-                        myIntent.putExtra("Currency", "Dollars"); //Optional parameters
-                    } else if (value.contains("¥")) {
-                        myIntent.putExtra("Currency", "Yen"); //Optional parameters
-                    } else {
-                        myIntent.putExtra("Currency", "Sri Lankan Rupees"); //Optional parameters
+                if (validValue == true) {
+                    Intent myIntent = new Intent(this, SummaryViewActivity.class);
+                    myIntent.putExtra("Total", value); //Optional parameters
+                    try {
+                        if (value.contains("$")) {
+                            myIntent.putExtra("Currency", "Dollars"); //Optional parameters
+                        } else if (value.contains("¥")) {
+                            myIntent.putExtra("Currency", "Yen"); //Optional parameters
+                        } else {
+                            myIntent.putExtra("Currency", "Sri Lankan Rupees"); //Optional parameters
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    this.startActivity(myIntent);
                 }
-                this.startActivity(myIntent);
             }
 
 
