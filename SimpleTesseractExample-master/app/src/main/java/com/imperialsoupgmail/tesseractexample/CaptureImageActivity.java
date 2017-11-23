@@ -91,6 +91,7 @@ public class CaptureImageActivity extends AppCompatActivity {
     int count = 0;
     int position = 0;
     boolean validValue = false;
+    boolean learnLoader = false;
 
     private static final String TAG = "LDSS";
     private EditText mNameField;
@@ -670,6 +671,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         }
 
         if (validValue == false){
+            learnLoader =true;
             secondToken = "Please Retake Image...";
             System.out.println("------------Calling algorithmia------------");
 //            try{
@@ -911,7 +913,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             value = extractTotal(OCRresult);
             System.out.println("Extracted Text -----"+ OCRresult);
-                if (validValue == true) {
+
+            System.out.println("------------Learnloader------------");
+                if (learnLoader == false) {
                     Intent myIntent = new Intent(this, SummaryViewActivity.class);
                     myIntent.putExtra("Total", value); //Optional parameters
                     try {
