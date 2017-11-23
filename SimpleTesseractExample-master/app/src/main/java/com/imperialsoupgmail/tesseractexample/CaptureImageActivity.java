@@ -934,6 +934,7 @@ public class CaptureImageActivity extends AppCompatActivity {
             }
 
 
+            
     }
 
     public Bitmap doSharpen(Bitmap original, float[] radius) {
