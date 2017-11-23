@@ -46,8 +46,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -69,6 +71,8 @@ public class CaptureImageActivity extends AppCompatActivity {
     public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public boolean isRemoteImage = false;
+
+    static String fileName = "keys.json";
 
 
     //private static final String TAG = "CaptureImageActivity";
@@ -214,7 +218,17 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
-         jsonString = loadJSONFromAsset();
+         //jsonString = loadJSONFromAsset();
+         jsonString = getData(this);
+
+//        try {
+//                    saveData(this,jsonString);
+//
+//                     String dataRead = getData(this);
+//            System.out.println("~~~~~~~~~~~~~~~~~~~~Real data read - "+dataRead);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         try {
             JSONObject json = new JSONObject(jsonString);
@@ -224,6 +238,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             for (int i = 0; i < contacts.length(); i++) {
                 JSONObject c = contacts.getJSONObject(i);
+               // JSONObject c = contacts.
 
 
                 String key = c.getString("key");
@@ -257,10 +272,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         mTess.init(datapath, language);
 
-
-
     }
-
 
     public String loadJSONFromAsset() {
         String json = null;
@@ -287,7 +299,33 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     }
 
+    public void saveData(Context context, String mJsonResponse) {
+        try {
+            FileWriter file = new FileWriter(context.getFilesDir().getPath() + "/" + fileName);
+            System.out.println("File path -----" + context.getFilesDir().getPath() + "/" + fileName);
+            file.write(mJsonResponse);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            Log.e("TAG", "Error in Writing: " + e.getLocalizedMessage());
+        }
+    }
 
+    public String getData(Context context) {
+        try {
+            File f = new File(context.getFilesDir().getPath() + "/" + fileName);
+            //check whether file exists
+            FileInputStream is = new FileInputStream(f);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            return new String(buffer);
+        } catch (IOException e) {
+            Log.e("TAG", "Error in Reading: " + e.getLocalizedMessage());
+            return null;
+        }
+    }
 
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -968,6 +1006,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         return edgeImg;
     }
+
 
 
     private void saveToDB() {
