@@ -218,31 +218,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
-        // jsonString = getData(this);
-        createJsonFromTemplate();
+         jsonString = getData(this);
 
-//        try {
-//            JSONObject json = new JSONObject(jsonString);
-//            JSONArray contacts = json.getJSONArray("data");
-//
-//
-//
-//            for (int i = 0; i < contacts.length(); i++) {
-//                JSONObject c = contacts.getJSONObject(i);
-//
-//                String key = c.getString("key");
-//                System.out.println("-----------------JSON read ---------------- "+key);
-//
-//
-//            }
-//
-//
-//
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
 
 
         //initialize Tesseract API
