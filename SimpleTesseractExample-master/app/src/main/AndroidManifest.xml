@@ -46,6 +46,7 @@
         <activity android:name=".SpacePhotoActivity" />
         <activity android:name=".PhotoDetailActivity" />
         <activity android:name=".LearnReceiptActivity" />
+        <activity android:name=".ReportViewActivity" />
     </application>
 
 </manifest>

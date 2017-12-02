@@ -3,7 +3,6 @@ package com.imperialsoupgmail.tesseractexample;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,10 +27,9 @@ public class LearnReceiptActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_receipt_view);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-         txtTotal = (EditText) findViewById(R.id.txtTotal);
-          txtDate = (EditText) findViewById(R.id.editText2);
+
+         txtTotal = (EditText) findViewById(R.id.txtMonth);
+          txtDate = (EditText) findViewById(R.id.lblMonthTotal);
 
         btnSave = (Button)findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
@@ -41,7 +39,7 @@ public class LearnReceiptActivity extends AppCompatActivity {
                 System.out.println("Old word - "+oldKeys);
 
                 try {
-                    //String newKeys = "Sample";
+
 
                     String newKeys = txtDate.getText().toString();
                     JSONObject json = new JSONObject(oldKeys);
@@ -50,9 +48,9 @@ public class LearnReceiptActivity extends AppCompatActivity {
                     newJson.put("key",newKeys);
                     contacts.put(newJson);
 
-                   // JSONObject c =
+
                     saveData(LearnReceiptActivity.this,json.toString());
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~Json String  word - "+getData(LearnReceiptActivity.this));
+                    System.out.println("Json String  word - "+getData(LearnReceiptActivity.this));
                     System.out.println("New word - "+getData(LearnReceiptActivity.this));
 
 
@@ -80,7 +78,7 @@ public class LearnReceiptActivity extends AppCompatActivity {
     public void saveData(Context context, String mJsonResponse) {
         try {
             FileWriter file = new FileWriter(context.getFilesDir().getPath() + "/" + fileName);
-            System.out.println("File path -----" + context.getFilesDir().getPath() + "/" + fileName);
+
             file.write(mJsonResponse);
             file.flush();
             file.close();

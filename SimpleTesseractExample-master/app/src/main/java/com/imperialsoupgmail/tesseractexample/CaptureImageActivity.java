@@ -74,10 +74,6 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     static String fileName = "keys.json";
 
-
-    //private static final String TAG = "CaptureImageActivity";
-
-
     private TessBaseAPI mTess;
 
     String datapath = "";
@@ -129,11 +125,6 @@ public class CaptureImageActivity extends AppCompatActivity {
                     System.out.println("Enhancing Image...");
                     imageBitmap = setGrayscale(imageBitmap);
                     imageBitmap = setGrayscale(imageBitmap);
-                    //imageBitmap = removeNoise(imageBitmap);
-
-                    //imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
-                    //imageBitmap = sharpen(imageBitmap,0.1);
-
 
 
                     result.setImageBitmap(imageBitmap);
@@ -149,7 +140,6 @@ public class CaptureImageActivity extends AppCompatActivity {
             public void onClick(View v){
                 try{
 
-                    //imageBitmap = removeNoise(imageBitmap);
                     imageBitmap = RemoveNoise(imageBitmap);
 
 
@@ -169,12 +159,7 @@ public class CaptureImageActivity extends AppCompatActivity {
             public void onClick(View v){
                 try{
                     System.out.println("Enhancing Image...");
-                    //imageBitmap = setGrayscale(imageBitmap);
-                    //imageBitmap = setGrayscale(imageBitmap);
-                    //imageBitmap = removeNoise(imageBitmap);
 
-                    //imageBitmap = generateEdgeImage(imageBitmap,imageBitmap.getWidth(),imageBitmap.getHeight());
-                    //imageBitmap = sharpen(imageBitmap,0.1);
 
                     float[] low = { -0.60f, -0.60f, -0.60f, -0.60f, 5.81f, -0.60f,
                             -0.60f, -0.60f, -0.60f };
@@ -219,17 +204,8 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
-         //jsonString = loadJSONFromAsset();
          jsonString = getData(this);
 
-//        try {
-//                    saveData(this,jsonString);
-//
-//                     String dataRead = getData(this);
-//            System.out.println("~~~~~~~~~~~~~~~~~~~~Real data read - "+dataRead);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         try {
             JSONObject json = new JSONObject(jsonString);
@@ -239,20 +215,11 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             for (int i = 0; i < contacts.length(); i++) {
                 JSONObject c = contacts.getJSONObject(i);
-               // JSONObject c = contacts.
-
 
                 String key = c.getString("key");
                 System.out.println("-----------------JSON read ---------------- "+key);
 
-//                // adding each child node to HashMap key => value
-//                contact.put("id", id);
-//                contact.put("name", name);
-//                contact.put("email", email);
-//                contact.put("mobile", mobile);
-//
-//                // adding contact to contact list
-//                contactList.add(contact);
+
             }
 
 
@@ -442,212 +409,15 @@ public class CaptureImageActivity extends AppCompatActivity {
                         validateRead();
                         break;
                   }
-
-//                // adding each child node to HashMap key => value
-//                contact.put("id", id);
-//                contact.put("name", name);
-//                contact.put("email", email);
-//                contact.put("mobile", mobile);
-//
-//                // adding contact to contact list
-//                contactList.add(contact);
             }
-
-
-
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        //--
-/*
-       String firstToken ;
-        String secondToken = null;
-        validValue = false;
-
-        //String thrirdToken = null;
-
-        try{
-            String[] tokens = value.split(" ");
-
-            if(value.contains("TOTAL DUE")){
-
-                tokens = value.split("TOTAL DUE");
-                System.out.println("****** TOTAL DUE ******");
-                validateRead();
-
-            }else if(value.contains(" NET TOTAL I")){
-
-                tokens = value.split(" NET TOTAL I");
-                System.out.println("******  NET TOTAL I   ******");
-                validateRead();
-
-            }else if(value.contains("00000976 1")){
-
-                tokens = value.split("00000976 1");
-                System.out.println("****** 00000976 1 ******");
-                validateRead();
-
-            }else if(value.contains("TOTAL:LKR")){
-
-                tokens = value.split("TOTAL:LKR");
-                System.out.println("****** TOTAL:LKR ******");
-                validateRead();
-
-            }else if(value.contains("Total")){
-
-                tokens = value.split("Total");
-                System.out.println("****** Total ******");
-                validateRead();
-
-            }else if(value.contains("SUB IOIAL")){
-
-                tokens = value.split("SUB IOIAL");
-                System.out.println("****** SUB IOIAL ******");
-                validateRead();
-
-            }else if(value.contains("SUB TUTAL")){
-
-                tokens = value.split("SUB TUTAL");
-                System.out.println("****** SUB TUTAL ******");
-                validateRead();
-
-            }else if(value.contains("Het T003;")){
-
-                tokens = value.split("Het T003;");
-                System.out.println("****** Het T003; ******");
-                validateRead();
-
-            }else if(value.contains("Amount")){
-
-                tokens = value.split("Amount");
-                System.out.println("****** Amount ******");
-                validateRead();
-
-            }else if(value.contains("AMOUNT")){
-
-                tokens = value.split("AMOUNT");
-                System.out.println("****** AMOUNT ******");
-                validateRead();
-
-            }else if(value.contains("Net Total")){
-
-                tokens = value.split("Net Total");
-                System.out.println("****** Net Total ******");
-                validateRead();
-
-            }else if(value.contains("|ToTnL=LKR")){
-
-                tokens = value.split("|ToTnL=LKR");
-                System.out.println("****** |ToTnL=LKR ******");
-                validateRead();
-
-            }else if(value.contains(".ToTnL=LKR")){
-
-                tokens = value.split(".ToTnL=LKR");
-                System.out.println("****** TOTAL:LKR ******");
-                validateRead();
-
-            }else if(value.contains("Amount Due:")){
-
-                tokens = value.split("Amount Due:");
-                System.out.println("****** Amount Due:  ******");
-                validateRead();
-
-            }else if(value.contains("Amount Due: ")){
-
-                tokens = value.split("Amount Due: ");
-                System.out.println("****** Amount Due: ******");
-                validateRead();
-
-            }else if(value.contains("lToTnL=LKR")){
-
-                tokens = value.split("lToTnL=LKR");
-                System.out.println("****** lToTnL=LKR ******");
-                validateRead();
-
-            }else if(value.contains("|TOTRL.2LKR")){
-
-                tokens = value.split("|TOTRL.2LKR");
-                System.out.println("****** |TOTRL.2LKR ******");
-                validateRead();
-
-            }else if(value.contains("1T0TAL=LKR")){
-
-                tokens = value.split("1T0TAL=LKR");
-                System.out.println("****** 1T0TAL=LKR ******");
-                validateRead();
-
-            }else if(value.contains("Balame Due")){
-
-                tokens = value.split("Balame Due");
-                System.out.println("****** Balame Due ******");
-                validateRead();
-
-            }else if(value.contains("WELL:")){
-
-                tokens = value.split("WELL:");
-                System.out.println("****** WELL: ******");
-                validateRead();
-
-            }else if(value.contains("Net Amount 92 . 5")){
-
-                tokens = value.split("Net Amount 92 . 5");
-                System.out.println("****** hI . 5 ******");
-                validateRead();
-
-            }else if(value.contains("Balance Due")){
-
-                tokens = value.split("Balance Due");
-                System.out.println("****** Balance Due ******");
-                validateRead();
-
-            }else if(value.contains("Total l pieces")){
-
-                tokens = value.split("Total l pieces");
-                System.out.println("****** Total l pieces ******");
-                validateRead();
-
-            }else if(value.contains("Subtotai")){
-
-                tokens = value.split("Subtotai");
-                System.out.println("****** Subtotai ******");
-                validateRead();
-
-            }else if(value.contains(".N- : ")){
-
-                tokens = value.split(".N- : ");
-                System.out.println("****** .N- :   ******");
-                validateRead();
-
-            }else if(value.contains("N- =")){
-
-                tokens = value.split("N- =");
-                System.out.println("******.N- =  ******");
-                validateRead();
-
-            }else if(value.contains("TOTAL")){
-
-                tokens = value.split("TOTAL");
-                System.out.println("****** TOTAL ******");
-                validateRead();
-
-            }
-
-*/
 
             firstToken = tokens[0];
             secondToken = tokens[1];
-            //thrirdToken = tokens[2];
-
 
             System.out.println("--- FirstToken ---- "+ firstToken);
             System.out.println("--- SecondToken ---- "+ secondToken);
             System.out.println("--- Value ---- "+ secondToken.split("\n",2)[0]);
             secondToken = secondToken.split("\n",2)[0];
-
 
             int wordCount = secondToken.trim().isEmpty() ? 0 : secondToken.trim().split("\\s+").length;
             System.out.println("--- No of sets detected ---- "+ wordCount);
@@ -665,7 +435,6 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             }
 
-
         }catch(Exception e){
 
         }
@@ -674,22 +443,11 @@ public class CaptureImageActivity extends AppCompatActivity {
             learnLoader =true;
             secondToken = "Please Retake Image...";
             System.out.println("------------Calling algorithmia------------");
-//            try{
-//                //String input = "http://i.imgur.com/CNmIkxo.jpg";
-//                String input = "\"data://lightway/images/test_image23.jpg\"";
-//                AlgorithmiaClient client = Algorithmia.client("simGOeJ6EkwUyE2zMa8BfjUVlUz1");
-//                Algorithm algo = client.algo("algo://ocr/ReceiptRecognition/0.1.6");
-//                AlgoResponse result = algo.pipeJson(input);
-//                System.out.println(result.asJsonString());
-//
-//                System.out.println("------------Calling algorithmia done------------");
-//            }catch(Exception e){
-//                e.printStackTrace();
-//            }
+
 
             Intent myIntent = new Intent(this, LearnReceiptActivity.class);
-//
-            myIntent.putExtra("Total", value); //Optional parameters
+
+        myIntent.putExtra("Total", value); //Optional parameters
             try {
 
                     myIntent.putExtra("Currency", ""); //Optional parameters
@@ -895,9 +653,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             result.buildDrawingCache();
             Bitmap bmap = result.getDrawingCache();
-//
+
             imageBitmap = bmap;
-//            result.setDrawingCacheEnabled(false);
+
         }
 
         if(imageBitmap!=null){
@@ -929,12 +687,14 @@ public class CaptureImageActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                     this.startActivity(myIntent);
+
                 }
             }
 
 
-            
+
     }
 
     public Bitmap doSharpen(Bitmap original, float[] radius) {
@@ -1025,49 +785,6 @@ public class CaptureImageActivity extends AppCompatActivity {
         Toast.makeText(this, "The new Row Id is " + newRowId, Toast.LENGTH_LONG).show();
     }
 
-//    private void readFromDB() {
-//        String firstname = binding.firstnameEditText.getText().toString();
-//        String lastname = binding.lastnameEditText.getText().toString();
-//
-//        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
-//
-//        String[] selectionArgs = {"%" + firstname + "%", "%" + lastname + "%"};
-//
-//        Cursor cursor = database.rawQuery(SampleDBContract.SELECT_Expense_WITH_EMPLOYER, selectionArgs);
-//        binding.recycleView.setAdapter(new SampleJoinRecyclerViewCursorAdapter(this, cursor));
-//    }
-
-//    private List<String> loadNames() {
-//        List<String> result = new ArrayList<String>();
-//        InputStream inputStream = getResources().openRawResource(R.raw.names);
-//        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-//        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//        try {
-//            String s;
-//            while ((s = bufferedReader.readLine()) != null) {
-//                result.add(s);
-//            }
-//        } catch (IOException e) {
-//            //Log.d(TAG, "io error", e);
-//        }
-//        return result;
-//    }
-
-//    private List<Result> search(String input) {
-//        List<Result> results = new ArrayList<>();
-//        Queue<Result> minHeap = new PriorityQueue<>();
-//        for (String name : mNames) {
-//            int levenshteinDistance = StringUtils.getLevenshteinDistance(name, input);
-//            Result r = new Result();
-//            r.name = name;
-//            r.distance = levenshteinDistance;
-//            minHeap.add(r);
-//        }
-//        for (int i = 0; i < 5 && !minHeap.isEmpty(); i++) {
-//            results.add(minHeap.poll());
-//        }
-//        return results;
-//    }
 
     private class Result implements Comparable<Result> {
         int distance;

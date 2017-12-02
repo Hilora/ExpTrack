@@ -11,6 +11,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
     Button btnCamera ;
     Button btnBills ;
+    Button btnReport;
 
 
 
@@ -18,6 +19,7 @@ public class MainScreenActivity extends AppCompatActivity {
     public void init() {
         btnCamera = (Button)findViewById(R.id.btnCamera);
         btnBills = (Button)findViewById(R.id.btnBills);
+        btnReport = (Button)findViewById(R.id.btnReport);
 
         btnCamera.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -31,6 +33,13 @@ public class MainScreenActivity extends AppCompatActivity {
                 openGallery(v);
             }
         });
+        btnReport.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openReport(v);
+            }
+        });
+
 
     }
 
@@ -55,6 +64,13 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void openGallery(View view){
         Intent myIntent = new Intent(this, SpaceGalleryActivity.class);
+        this.startActivity(myIntent);
+
+
+    }
+
+    public void openReport(View view){
+        Intent myIntent = new Intent(this, ReportViewActivity.class);
         this.startActivity(myIntent);
 
 
