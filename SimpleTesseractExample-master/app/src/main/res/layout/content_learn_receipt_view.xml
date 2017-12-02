@@ -14,7 +14,7 @@
     tools:showIn="@layout/activity_learn_receipt_view">
 
     <EditText
-        android:id="@+id/lblMonthTotal"
+        android:id="@+id/lblCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSave"
@@ -24,7 +24,7 @@
         android:text="Enter Key" />
 
     <EditText
-        android:id="@+id/lblMonth"
+        android:id="@+id/lblInvoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/lblMonthTotal"
+        android:layout_alignStart="@+id/lblCurrency"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="96dp"
         android:id="@+id/btnSave" />
@@ -60,8 +60,8 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtMonthTotal"
-        android:layout_alignBaseline="@+id/lblMonthTotal"
-        android:layout_alignBottom="@+id/lblMonthTotal"
+        android:layout_alignBaseline="@+id/lblCurrency"
+        android:layout_alignBottom="@+id/lblCurrency"
         android:layout_alignParentEnd="true" />
 
     <EditText

@@ -54,9 +54,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -71,8 +73,10 @@ public class CaptureImageActivity extends AppCompatActivity {
     public static final String EXTRA_SPACE_PHOTO = "SpacePhotoActivity.SPACE_PHOTO";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public boolean isRemoteImage = false;
-
+    String month;
     static String fileName = "keys.json";
+    static String monthlyReportFilename = "Monthly_Report.json";
+
 
     private TessBaseAPI mTess;
 
@@ -182,6 +186,16 @@ public class CaptureImageActivity extends AppCompatActivity {
 
             }
         });
+
+        ///Setting Month
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("MMMM");
+            Date date = new Date();
+             month = dateFormat.format(date);
+
+        }catch (Exception e){
+
+        }
 
     }
 

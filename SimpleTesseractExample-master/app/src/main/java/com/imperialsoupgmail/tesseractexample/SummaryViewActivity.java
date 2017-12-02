@@ -17,7 +17,10 @@ public class SummaryViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         EditText txtTotal = (EditText) findViewById(R.id.txtMonth);
         EditText txtDate = (EditText) findViewById(R.id.txtMonthTotal);
-
+        EditText lblInvoice = (EditText) findViewById(R.id.lblInvoice);
+        EditText lblCurrency = (EditText) findViewById(R.id.lblCurrency);
+        lblInvoice.setEnabled(false);
+        lblCurrency.setEnabled(false);
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
 

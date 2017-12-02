@@ -14,11 +14,11 @@
     tools:showIn="@layout/activity_report_view">
 
     <EditText
-        android:id="@+id/lblMonthTotal"
+        android:id="@+id/lblCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/lblMonth"
-        android:layout_below="@+id/lblMonth"
+        android:layout_alignEnd="@+id/lblInvoice"
+        android:layout_below="@+id/lblInvoice"
         android:layout_marginTop="38dp"
         android:editable="false"
         android:ems="10"
@@ -26,7 +26,7 @@
         android:text="Month Total" />
 
     <EditText
-        android:id="@+id/lblMonth"
+        android:id="@+id/lblInvoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -43,8 +43,8 @@
         android:id="@+id/txtMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblMonth"
-        android:layout_alignBottom="@+id/lblMonth"
+        android:layout_alignBaseline="@+id/lblInvoice"
+        android:layout_alignBottom="@+id/lblInvoice"
         android:layout_alignParentEnd="true"
         android:ems="10"
         android:inputType="textPersonName"
@@ -54,7 +54,7 @@
         android:id="@+id/txtMonthTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/lblMonthTotal"
+        android:layout_alignBottom="@+id/lblCurrency"
         android:layout_alignParentEnd="true"
         android:ems="10"
         android:inputType="textPersonName"

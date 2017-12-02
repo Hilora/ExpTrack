@@ -3,7 +3,6 @@ package com.imperialsoupgmail.tesseractexample;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 import android.widget.EditText;
@@ -30,8 +29,8 @@ public class ReportViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_view);
-        EditText lblMonth= (EditText) findViewById(R.id.lblMonth);
-        EditText lblMonthTotal = (EditText) findViewById(R.id.lblMonthTotal);
+        EditText lblMonth= (EditText) findViewById(R.id.lblInvoice);
+        EditText lblMonthTotal = (EditText) findViewById(R.id.lblCurrency);
         EditText txtMonth= (EditText) findViewById(R.id.txtMonth);
         EditText txtMonthTotal = (EditText) findViewById(R.id.txtMonthTotal);
         lblMonth.setEnabled(false);

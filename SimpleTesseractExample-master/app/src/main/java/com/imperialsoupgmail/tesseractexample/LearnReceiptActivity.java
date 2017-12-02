@@ -29,7 +29,7 @@ public class LearnReceiptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_learn_receipt_view);
 
          txtTotal = (EditText) findViewById(R.id.txtMonth);
-          txtDate = (EditText) findViewById(R.id.lblMonthTotal);
+          txtDate = (EditText) findViewById(R.id.lblCurrency);
 
         btnSave = (Button)findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
