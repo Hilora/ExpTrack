@@ -64,7 +64,7 @@
         android:ems="10"
         android:layout_alignTop="@+id/lblInvoice"
         android:layout_toEndOf="@+id/btnSave"
-        android:id="@+id/txtMonth"
+        android:id="@+id/txtTotal"
         android:layout_alignStart="@+id/button6" />
 
     <EditText
@@ -74,6 +74,6 @@
         android:ems="10"
         android:layout_alignBottom="@+id/lblCurrency"
         android:layout_alignParentEnd="true"
-        android:id="@+id/txtMonthTotal" />
+        android:id="@+id/txtCurrency" />
 
 </RelativeLayout>

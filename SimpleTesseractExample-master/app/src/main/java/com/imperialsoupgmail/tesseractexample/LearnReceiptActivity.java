@@ -21,20 +21,23 @@ public class LearnReceiptActivity extends AppCompatActivity {
     Button btnSave ;
     EditText txtTotal;
     EditText txtDate;
-    static String fileName = "keys.json";
+//    static String fileName = "keys.json";
+    static String fileName = "content.json";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_receipt_view);
 
-         txtTotal = (EditText) findViewById(R.id.txtMonth);
+         txtTotal = (EditText) findViewById(R.id.txtTotal);
           txtDate = (EditText) findViewById(R.id.lblCurrency);
 
         btnSave = (Button)findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                System.out.println("In Key saving file )))))))))))))))))))))))))))))))))))))))))))))))");
                 String oldKeys  = getData(LearnReceiptActivity.this);
                 System.out.println("Old word - "+oldKeys);
 

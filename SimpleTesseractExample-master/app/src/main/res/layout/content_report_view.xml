@@ -40,7 +40,7 @@
         android:text="Month" />
 
     <EditText
-        android:id="@+id/txtMonth"
+        android:id="@+id/txtTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/lblInvoice"
@@ -51,7 +51,7 @@
         android:textAlignment="textEnd" />
 
     <EditText
-        android:id="@+id/txtMonthTotal"
+        android:id="@+id/txtCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/lblCurrency"

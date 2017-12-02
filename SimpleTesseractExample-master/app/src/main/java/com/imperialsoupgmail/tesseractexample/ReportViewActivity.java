@@ -31,8 +31,8 @@ public class ReportViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report_view);
         EditText lblMonth= (EditText) findViewById(R.id.lblInvoice);
         EditText lblMonthTotal = (EditText) findViewById(R.id.lblCurrency);
-        EditText txtMonth= (EditText) findViewById(R.id.txtMonth);
-        EditText txtMonthTotal = (EditText) findViewById(R.id.txtMonthTotal);
+        EditText txtMonth= (EditText) findViewById(R.id.txtTotal);
+        EditText txtMonthTotal = (EditText) findViewById(R.id.txtCurrency);
         lblMonth.setEnabled(false);
         lblMonthTotal.setEnabled(false);
 
@@ -54,14 +54,28 @@ public class ReportViewActivity extends AppCompatActivity {
             JSONObject json = new JSONObject(jsonString);
             String month = txtMonth.getText().toString();
             Double total = 0.0;
+            String strTotal = "";
             JSONArray contacts = json.getJSONArray(month);
 
             for (int i = 0; i < contacts.length(); i++) {
                 JSONObject c = contacts.getJSONObject(i);
 
-                String title = c.getString("Title");
-                total += c.getDouble("Amount");
-                System.out.println("-----------------Monthly Expense ---------------- "+title +"- "+c.getDouble("Amount"));
+                //String title = c.getString("Title");
+                strTotal = c.getString("Amount");
+
+                strTotal = strTotal.replaceAll("\\D+","");
+                System.out.println("Amount - "+strTotal);
+
+                StringBuilder builder = new StringBuilder(strTotal);
+                int x = 2;
+                builder.insert(builder.length() - x, ".");
+
+
+                strTotal = builder+"";
+                System.out.println("Builder Value - "+strTotal);
+
+                total +=  Double.parseDouble(strTotal);
+                System.out.println("-----------------Monthly Expense ---------------- "+c.getString("Amount"));
                 txtMonthTotal.setText(total+"");
 
             }

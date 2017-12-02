@@ -219,9 +219,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
-        // jsonString = getData(this);
+         jsonString = getData(this);
 
-        createJsonFromTemplate();
+        //createJsonFromTemplate();
 
 
         //initialize Tesseract API

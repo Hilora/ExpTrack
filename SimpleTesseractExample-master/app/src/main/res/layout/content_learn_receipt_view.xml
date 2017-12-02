@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/txtMonth"
+        android:layout_toStartOf="@+id/txtTotal"
         android:ems="10"
         android:inputType="textPersonName"
         android:minWidth="20dp"
@@ -59,19 +59,19 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/txtMonthTotal"
+        android:id="@+id/txtCurrency"
         android:layout_alignBaseline="@+id/lblCurrency"
         android:layout_alignBottom="@+id/lblCurrency"
         android:layout_alignParentEnd="true" />
 
     <EditText
-        android:id="@+id/txtMonth"
+        android:id="@+id/txtTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/txtMonthTotal" />
+        android:layout_above="@+id/txtCurrency" />
 
 </RelativeLayout>
