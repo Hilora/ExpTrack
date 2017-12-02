@@ -74,7 +74,8 @@ public class CaptureImageActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public boolean isRemoteImage = false;
     String month;
-    static String fileName = "keys.json";
+    //static String fileName = "keys.json";
+    static String fileName = "content.json";
     static String monthlyReportFilename = "Monthly_Report.json";
 
 
@@ -218,9 +219,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
-         jsonString = getData(this);
+        // jsonString = getData(this);
 
-
+        createJsonFromTemplate();
 
 
         //initialize Tesseract API
@@ -794,9 +795,15 @@ public class CaptureImageActivity extends AppCompatActivity {
     }
 
     public void createJsonFromTemplate() {
-        jsonString = loadJSONFromAsset();
-        saveData(this,jsonString);
         System.out.println("$$$$$$$$$$$$---------File templated------------$$$$$$$$$$$$$");
+        try{
+            jsonString = loadJSONFromAsset();
+            saveData(this,jsonString);
+        }catch (Exception e){
+            System.out.println("Error in templating...");
+        }
+
+
     }
 
 
