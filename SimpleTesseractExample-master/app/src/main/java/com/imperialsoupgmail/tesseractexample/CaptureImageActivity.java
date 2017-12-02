@@ -218,8 +218,8 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         loadRemoteImage();
 
-         jsonString = getData(this);
-
+        // jsonString = getData(this);
+        createJsonFromTemplate();
 
 //        try {
 //            JSONObject json = new JSONObject(jsonString);
@@ -260,7 +260,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         String json = null;
         try {
 
-            InputStream is = getAssets().open("content.json");
+            InputStream is = getAssets().open(fileName);
 
             int size = is.available();
 
@@ -813,6 +813,12 @@ public class CaptureImageActivity extends AppCompatActivity {
         public String toString() {
             return "name=" + name + ", distance=" + distance + "\n";
         }
+    }
+
+    public void createJsonFromTemplate() {
+        jsonString = loadJSONFromAsset();
+        saveData(this,jsonString);
+        System.out.println("$$$$$$$$$$$$---------File templated------------$$$$$$$$$$$$$");
     }
 
 
